@@ -1,0 +1,164 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k+kn}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k+kn}{as} \PYG{n+nn}{pd}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k+kn}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy.stats} \PYG{k+kn}{import} \PYG{n}{norm}
+\PYG{k+kn}{import} \PYG{n+nn}{pystan}
+\PYG{k+kn}{import} \PYG{n+nn}{psis}
+
+\PYG{n}{machines} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}fwf}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./factory.txt\PYGZsq{}}\PYG{p}{,} \PYG{n}{header}\PYG{o}{=}\PYG{n+nb+bp}{None}\PYG{p}{)}\PYG{o}{.}\PYG{n}{values}
+\PYG{n}{machines\PYGZus{}transposed} \PYG{o}{=} \PYG{n}{machines}\PYG{o}{.}\PYG{n}{T}
+
+\PYG{k}{def} \PYG{n+nf}{psisloo\PYGZus{}computation}\PYG{p}{(}\PYG{n}{log\PYGZus{}lik}\PYG{p}{,} \PYG{n}{fig\PYGZus{}name}\PYG{p}{,} \PYG{n}{model\PYGZus{}name}\PYG{p}{):}
+
+    \PYG{c+c1}{\PYGZsh{}PSIS\PYGZhy{}LOO values}
+    \PYG{n}{psis\PYGZus{}loo} \PYG{o}{=} \PYG{n}{psis}\PYG{o}{.}\PYG{n}{psisloo}\PYG{p}{(}\PYG{n}{log\PYGZus{}lik}\PYG{p}{)}
+    \PYG{n}{lppd\PYGZus{}loocv} \PYG{o}{=} \PYG{n}{psis\PYGZus{}loo}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+    \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}PSIS\PYGZhy{}LOO: \PYGZsq{}}\PYG{p}{,} \PYG{n}{lppd\PYGZus{}loocv}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{}The effective number of parameters}
+    \PYG{n}{S} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{size}\PYG{p}{(}\PYG{n}{log\PYGZus{}lik}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{)}
+    \PYG{n}{lppd} \PYG{o}{=} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{log}\PYG{p}{([}\PYG{l+m+mi}{1}\PYG{o}{/}\PYG{n}{S}\PYG{o}{*}\PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{n}{col}\PYG{p}{))} \PYG{k}{for} \PYG{n}{col} \PYG{o+ow}{in} \PYG{n}{log\PYGZus{}lik}\PYG{o}{.}\PYG{n}{T}\PYG{p}{]))}
+    \PYG{n}{p\PYGZus{}loocv} \PYG{o}{=} \PYG{n}{lppd} \PYG{o}{\PYGZhy{}} \PYG{n}{lppd\PYGZus{}loocv}
+    \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}p\PYGZus{}eff: \PYGZsq{}}\PYG{p}{,} \PYG{n}{p\PYGZus{}loocv}\PYG{p}{)}
+
+    \PYG{c+c1}{\PYGZsh{}k\PYGZhy{}values visualization}
+    \PYG{n}{psis\PYGZus{}hist} \PYG{o}{=} \PYG{n}{psis\PYGZus{}loo}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{psis\PYGZus{}hist}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{num}\PYG{o}{=}\PYG{l+m+mi}{50}\PYG{p}{),} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}grey\PYGZsq{}}\PYG{p}{,}\PYG{n}{ec}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}white\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./\PYGZob{}0\PYGZcb{}\PYGZsq{}}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{n}{fig\PYGZus{}name}\PYG{p}{))}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{Pooled model}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{n}{stan\PYGZus{}code\PYGZus{}pooled} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+s1}{data \PYGZob{}}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=0\PYGZgt{} N;       // number of data points}
+\PYG{l+s+s1}{    vector[N] y;          //}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{parameters \PYGZob{}}
+\PYG{l+s+s1}{    real mu;              // group means}
+\PYG{l+s+s1}{    real\PYGZlt{}lower=0\PYGZgt{} sigma;  // common std}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{model \PYGZob{}}
+\PYG{l+s+s1}{    y \PYGZti{} normal(mu, sigma);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{generated quantities \PYGZob{}}
+\PYG{l+s+s1}{    real ypred6;}
+\PYG{l+s+s1}{    vector[N] log\PYGZus{}lik;}
+\PYG{l+s+s1}{    ypred6 = normal\PYGZus{}rng(mu, sigma);}
+\PYG{l+s+s1}{    for (i in 1:N)}
+\PYG{l+s+s1}{        log\PYGZus{}lik[i] = normal\PYGZus{}lpdf(y[i] | mu, sigma);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{n}{machines\PYGZus{}pooled} \PYG{o}{=} \PYG{n}{machines}\PYG{o}{.}\PYG{n}{flatten}\PYG{p}{()}
+\PYG{n}{model\PYGZus{}pooled} \PYG{o}{=} \PYG{n}{pystan}\PYG{o}{.}\PYG{n}{StanModel}\PYG{p}{(}\PYG{n}{model\PYGZus{}code}\PYG{o}{=}\PYG{n}{stan\PYGZus{}code\PYGZus{}pooled}\PYG{p}{)}
+\PYG{n}{data\PYGZus{}pooled} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{(}
+    \PYG{n}{N}\PYG{o}{=}\PYG{n}{machines\PYGZus{}pooled}\PYG{o}{.}\PYG{n}{size}\PYG{p}{,}
+    \PYG{n}{y}\PYG{o}{=}\PYG{n}{machines\PYGZus{}pooled}
+\PYG{p}{)}
+
+\PYG{n}{fit\PYGZus{}pooled} \PYG{o}{=} \PYG{n}{model\PYGZus{}pooled}\PYG{o}{.}\PYG{n}{sampling}\PYG{p}{(}\PYG{n}{data}\PYG{o}{=}\PYG{n}{data\PYGZus{}pooled}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{fit\PYGZus{}pooled}\PYG{p}{)}
+
+\PYG{n}{log\PYGZus{}lik\PYGZus{}pooled} \PYG{o}{=} \PYG{n}{fit\PYGZus{}pooled}\PYG{o}{.}\PYG{n}{extract}\PYG{p}{(}\PYG{n}{permuted}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)[}\PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}lik\PYGZsq{}}\PYG{p}{]}
+\PYG{n}{psisloo\PYGZus{}computation}\PYG{p}{(}\PYG{n}{log\PYGZus{}lik\PYGZus{}pooled}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}pooled\PYGZus{}hist.png\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}Pool\PYGZsq{}}\PYG{p}{)}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{Separate model}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{n}{stan\PYGZus{}code\PYGZus{}separate} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+s1}{data \PYGZob{}}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=0\PYGZgt{} N;               // number of data points}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=0\PYGZgt{} K;               // number of groups}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=1,upper=K\PYGZgt{} x[N];    // group indicator}
+\PYG{l+s+s1}{    vector[N] y;}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{parameters \PYGZob{}}
+\PYG{l+s+s1}{    vector[K] mu;                 // group means}
+\PYG{l+s+s1}{    vector\PYGZlt{}lower=0\PYGZgt{}[K] sigma;     // group stds}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{model \PYGZob{}}
+\PYG{l+s+s1}{    y \PYGZti{} normal(mu[x], sigma[x]);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{generated quantities \PYGZob{}}
+\PYG{l+s+s1}{    real ypred6;}
+\PYG{l+s+s1}{    vector[N] log\PYGZus{}lik;}
+\PYG{l+s+s1}{    ypred6 = normal\PYGZus{}rng(mu[6], sigma[6]);}
+\PYG{l+s+s1}{    for (i in 1:N)}
+\PYG{l+s+s1}{        log\PYGZus{}lik[i] = normal\PYGZus{}lpdf(y[i] | mu[x[i]], sigma[x[i]]);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+
+\PYG{n}{model\PYGZus{}seperate} \PYG{o}{=} \PYG{n}{pystan}\PYG{o}{.}\PYG{n}{StanModel}\PYG{p}{(}\PYG{n}{model\PYGZus{}code}\PYG{o}{=}\PYG{n}{stan\PYGZus{}code\PYGZus{}separate}\PYG{p}{)}
+\PYG{n}{data\PYGZus{}separate} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{(}
+    \PYG{n}{N}\PYG{o}{=}\PYG{n}{machines\PYGZus{}transposed}\PYG{o}{.}\PYG{n}{size}\PYG{p}{,}
+    \PYG{n}{K}\PYG{o}{=}\PYG{l+m+mi}{6}\PYG{p}{,}
+    \PYG{n}{x}\PYG{o}{=}\PYG{p}{[}
+        \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,}
+        \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,}
+        \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,}
+        \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,}
+        \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,}
+        \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{,}
+    \PYG{p}{],}
+    \PYG{n}{y}\PYG{o}{=}\PYG{n}{machines\PYGZus{}transposed}\PYG{o}{.}\PYG{n}{flatten}\PYG{p}{()}
+\PYG{p}{)}
+
+\PYG{n}{fit\PYGZus{}separate} \PYG{o}{=} \PYG{n}{model\PYGZus{}seperate}\PYG{o}{.}\PYG{n}{sampling}\PYG{p}{(}\PYG{n}{data}\PYG{o}{=}\PYG{n}{data\PYGZus{}separate}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{fit\PYGZus{}separate}\PYG{p}{)}
+
+\PYG{n}{log\PYGZus{}lik\PYGZus{}separate} \PYG{o}{=} \PYG{n}{fit\PYGZus{}separate}\PYG{o}{.}\PYG{n}{extract}\PYG{p}{(}\PYG{n}{permuted}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)[}\PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}lik\PYGZsq{}}\PYG{p}{]}
+\PYG{n}{psisloo\PYGZus{}computation}\PYG{p}{(}\PYG{n}{log\PYGZus{}lik\PYGZus{}separate}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}separate\PYGZus{}hist.png\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}Separate\PYGZsq{}}\PYG{p}{)}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{Hierarchical model}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{n}{stan\PYGZus{}code\PYGZus{}hierarchical} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+s1}{data \PYGZob{}}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=0\PYGZgt{} N;             // number of data points}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=0\PYGZgt{} K;             // number of groups}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=1,upper=K\PYGZgt{} x[N];  // group indicator}
+\PYG{l+s+s1}{    vector[N] y;}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{parameters \PYGZob{}}
+\PYG{l+s+s1}{    real mu0;                   // prior mean}
+\PYG{l+s+s1}{    real\PYGZlt{}lower=0\PYGZgt{} sigma0;       // prior std}
+\PYG{l+s+s1}{    vector[K] mu;               // group means}
+\PYG{l+s+s1}{    real\PYGZlt{}lower=0\PYGZgt{} sigma;        // common std}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{model \PYGZob{}}
+\PYG{l+s+s1}{    mu \PYGZti{} normal(mu0, sigma0);}
+\PYG{l+s+s1}{    y \PYGZti{} normal(mu[x], sigma);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{generated quantities \PYGZob{}}
+\PYG{l+s+s1}{    real ypred6;}
+\PYG{l+s+s1}{    real mu7;}
+\PYG{l+s+s1}{    vector[N] log\PYGZus{}lik;}
+\PYG{l+s+s1}{    ypred6 = normal\PYGZus{}rng(mu[6], sigma);}
+\PYG{l+s+s1}{    mu7 = normal\PYGZus{}rng(mu0, sigma0);}
+\PYG{l+s+s1}{    for (i in 1:N)}
+\PYG{l+s+s1}{        log\PYGZus{}lik[i] = normal\PYGZus{}lpdf(y[i] | mu[x[i]], sigma);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+
+\PYG{n}{model\PYGZus{}hierarchical} \PYG{o}{=} \PYG{n}{pystan}\PYG{o}{.}\PYG{n}{StanModel}\PYG{p}{(}\PYG{n}{model\PYGZus{}code}\PYG{o}{=}\PYG{n}{stan\PYGZus{}code\PYGZus{}hierarchical}\PYG{p}{)}
+\PYG{n}{data\PYGZus{}hierarchical} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{(}
+    \PYG{n}{N}\PYG{o}{=}\PYG{n}{machines\PYGZus{}transposed}\PYG{o}{.}\PYG{n}{size}\PYG{p}{,}
+    \PYG{n}{K}\PYG{o}{=}\PYG{l+m+mi}{6}\PYG{p}{,}
+    \PYG{n}{x}\PYG{o}{=}\PYG{p}{[}
+        \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,}
+        \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,}
+        \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,}
+        \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,}
+        \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,}
+        \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{,}
+    \PYG{p}{],}
+    \PYG{n}{y}\PYG{o}{=}\PYG{n}{machines\PYGZus{}transposed}\PYG{o}{.}\PYG{n}{flatten}\PYG{p}{()}
+\PYG{p}{)}
+\PYG{n}{fit\PYGZus{}hierarchical} \PYG{o}{=} \PYG{n}{model\PYGZus{}hierarchical}\PYG{o}{.}\PYG{n}{sampling}\PYG{p}{(}\PYG{n}{data}\PYG{o}{=}\PYG{n}{data\PYGZus{}hierarchical}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{fit\PYGZus{}hierarchical}\PYG{p}{)}
+
+\PYG{n}{log\PYGZus{}lik\PYGZus{}hierarchical} \PYG{o}{=} \PYG{n}{fit\PYGZus{}hierarchical}\PYG{o}{.}\PYG{n}{extract}\PYG{p}{(}\PYG{n}{permuted}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)[}\PYG{l+s+s1}{\PYGZsq{}log\PYGZus{}lik\PYGZsq{}}\PYG{p}{]}
+\PYG{n}{psisloo\PYGZus{}computation}\PYG{p}{(}\PYG{n}{log\PYGZus{}lik\PYGZus{}hierarchical}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}hierarchical\PYGZus{}hist.png\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}hierarchical\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}
