@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{random\PYGZus{}samples} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{rvs}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{,} \PYG{n}{size}\PYG{o}{=}\PYG{l+m+mi}{1000}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{random\PYGZus{}samples}\PYG{p}{,} \PYG{n}{density}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./distribution\PYGZus{}hist.png\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{sample\PYGZus{}percentile} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{percentile}\PYG{p}{(}\PYG{n}{random\PYGZus{}samples}\PYG{p}{,} \PYG{n}{q}\PYG{o}{=}\PYG{l+m+mf}{2.5}\PYG{p}{),}
+                    \PYG{n}{np}\PYG{o}{.}\PYG{n}{percentile}\PYG{p}{(}\PYG{n}{random\PYGZus{}samples}\PYG{p}{,} \PYG{n}{q}\PYG{o}{=}\PYG{l+m+mf}{97.5}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}sample central percentile 95\PYGZpc{}: \PYGZsq{}}\PYG{p}{,} \PYG{n}{sample\PYGZus{}percentile}\PYG{p}{)}
+\end{Verbatim}

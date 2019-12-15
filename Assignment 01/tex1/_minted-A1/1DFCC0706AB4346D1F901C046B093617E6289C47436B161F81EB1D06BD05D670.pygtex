@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{sample\PYGZus{}mean} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{random\PYGZus{}samples}\PYG{p}{)}
+\PYG{n}{sample\PYGZus{}variance} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{var}\PYG{p}{(}\PYG{n}{random\PYGZus{}samples}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}sample mean: \PYGZsq{}}\PYG{p}{,} \PYG{n}{sample\PYGZus{}mean}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}sample variance: \PYGZsq{}}\PYG{p}{,} \PYG{n}{sample\PYGZus{}variance}\PYG{p}{)}
+\end{Verbatim}
