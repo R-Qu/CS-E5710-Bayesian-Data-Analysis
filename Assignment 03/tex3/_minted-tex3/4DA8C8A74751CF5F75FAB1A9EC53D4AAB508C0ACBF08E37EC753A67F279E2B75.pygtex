@@ -1,0 +1,50 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{scipy} \PYG{k+kn}{import} \PYG{n}{stats}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k+kn}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k+kn}{as} \PYG{n+nn}{np}
+
+\PYG{n}{x\PYGZus{}range} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mf}{0.2}\PYG{p}{,} \PYG{l+m+mf}{0.001}\PYG{p}{)}
+\PYG{n}{control} \PYG{o}{=} \PYG{l+m+mi}{674}
+\PYG{n}{control\PYGZus{}died} \PYG{o}{=} \PYG{l+m+mi}{39}
+\PYG{n}{control\PYGZus{}a} \PYG{o}{=} \PYG{n}{control\PYGZus{}died} \PYG{o}{+} \PYG{o}{.}\PYG{l+m+mi}{5}
+\PYG{n}{control\PYGZus{}b} \PYG{o}{=} \PYG{n}{control} \PYG{o}{\PYGZhy{}} \PYG{n}{control\PYGZus{}a} \PYG{o}{+} \PYG{o}{.}\PYG{l+m+mi}{5}
+\PYG{n}{control\PYGZus{}posterior} \PYG{o}{=} \PYG{n}{control\PYGZus{}a}\PYG{o}{/}\PYG{n}{control}
+\PYG{n}{control\PYGZus{}pdf} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{control\PYGZus{}a}\PYG{p}{,} \PYG{n}{control\PYGZus{}b}\PYG{p}{)}
+
+\PYG{n}{treatment} \PYG{o}{=} \PYG{l+m+mi}{680}
+\PYG{n}{treatment\PYGZus{}died} \PYG{o}{=} \PYG{l+m+mi}{22}
+\PYG{n}{treatment\PYGZus{}a} \PYG{o}{=} \PYG{n}{treatment\PYGZus{}died} \PYG{o}{+} \PYG{o}{.}\PYG{l+m+mi}{5}
+\PYG{n}{treatment\PYGZus{}b} \PYG{o}{=} \PYG{n}{treatment} \PYG{o}{\PYGZhy{}} \PYG{n}{treatment\PYGZus{}a} \PYG{o}{+} \PYG{o}{.}\PYG{l+m+mi}{5}
+\PYG{n}{treatment\PYGZus{}posterior} \PYG{o}{=} \PYG{n}{treatment\PYGZus{}a}\PYG{o}{/}\PYG{n}{treatment}
+
+\PYG{n}{control\PYGZus{}pdf} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{control\PYGZus{}a}\PYG{p}{,} \PYG{n}{control\PYGZus{}b}\PYG{p}{)}
+\PYG{n}{treatment\PYGZus{}pdf} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}a}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}b}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{control\PYGZus{}pdf}\PYG{p}{,}\PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Control group\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}pdf}\PYG{p}{,}\PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Treatment group\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./2apdf.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{n}{control\PYGZus{}cdf} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{cdf}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{control\PYGZus{}a}\PYG{p}{,} \PYG{n}{control\PYGZus{}b}\PYG{p}{)}
+\PYG{n}{treatment\PYGZus{}cdf} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{cdf}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}a}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}b}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{control\PYGZus{}cdf}\PYG{p}{,}\PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Control group\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}cdf}\PYG{p}{,}\PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Treatment group\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./2acdf.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{n}{p\PYGZus{}control} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{rvs}\PYG{p}{(}\PYG{n}{control\PYGZus{}a}\PYG{p}{,} \PYG{n}{control\PYGZus{}b}\PYG{p}{,} \PYG{n}{size}\PYG{o}{=}\PYG{l+m+mi}{100000}\PYG{p}{)}
+\PYG{n}{p\PYGZus{}treatment} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{rvs}\PYG{p}{(}\PYG{n}{treatment\PYGZus{}a}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}b}\PYG{p}{,} \PYG{n}{size}\PYG{o}{=}\PYG{l+m+mi}{100000}\PYG{p}{)}
+\PYG{n}{odd\PYGZus{}ratio} \PYG{o}{=} \PYG{p}{(}\PYG{n}{p\PYGZus{}treatment}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{o}{\PYGZhy{}}\PYG{n}{p\PYGZus{}treatment}\PYG{p}{))}\PYG{o}{/}\PYG{p}{(}\PYG{n}{p\PYGZus{}control}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{o}{\PYGZhy{}}\PYG{n}{p\PYGZus{}control}\PYG{p}{))}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{odd\PYGZus{}ratio}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{l+m+mi}{40}\PYG{p}{,} \PYG{n}{ec}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}white\PYGZsq{}}\PYG{p}{,}\PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}grey\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./2ahist.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{n}{mean} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{odd\PYGZus{}ratio}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}mean\PYGZsq{}}\PYG{p}{,}\PYG{n}{mean}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}95\PYGZpc{} Intervals\PYGZsq{}}\PYG{p}{,} \PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{percentile}\PYG{p}{(}\PYG{n}{odd\PYGZus{}ratio}\PYG{p}{,} \PYG{l+m+mf}{2.5}\PYG{p}{),}
+	\PYG{n}{np}\PYG{o}{.}\PYG{n}{percentile}\PYG{p}{(}\PYG{n}{odd\PYGZus{}ratio}\PYG{p}{,} \PYG{l+m+mf}{97.5}\PYG{p}{)))}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}90\PYGZpc{} Intervals\PYGZsq{}}\PYG{p}{,} \PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{percentile}\PYG{p}{(}\PYG{n}{odd\PYGZus{}ratio}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{),}
+	\PYG{n}{np}\PYG{o}{.}\PYG{n}{percentile}\PYG{p}{(}\PYG{n}{odd\PYGZus{}ratio}\PYG{p}{,} \PYG{l+m+mi}{95}\PYG{p}{)))}
+\end{Verbatim}

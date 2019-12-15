@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+Estimated mean: \PYG{l+m}{14}.6112\PYG{l+s+se}{\PYGZbs{}\PYGZbs{}}
+Estimated variance: \PYG{l+m}{2}.1731\PYG{l+s+se}{\PYGZbs{}\PYGZbs{}}
+Estimated standard deviation: \PYG{l+m}{1}.4742\PYG{l+s+se}{\PYGZbs{}\PYGZbs{}}
+\PYG{l+m}{95}\PYG{l+s+se}{\PYGZbs{}\PYGZpc{}} intervals: \PYG{o}{(}\PYG{l+m}{13}.4781, \PYG{l+m}{15}.7444\PYG{o}{)}\PYG{l+s+se}{\PYGZbs{}\PYGZbs{}}
+\end{Verbatim}

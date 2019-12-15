@@ -1,0 +1,48 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{math} \PYG{k+kn}{import} \PYG{n}{sqrt}
+\PYG{k+kn}{import} \PYG{n+nn}{scipy}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy} \PYG{k+kn}{import} \PYG{n}{stats}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k+kn}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k+kn}{as} \PYG{n+nn}{np}
+
+\PYG{k}{def} \PYG{n+nf}{model}\PYG{p}{(}\PYG{n}{data}\PYG{p}{):}
+    \PYG{n}{n} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+    \PYG{n}{mean} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+    \PYG{n}{variance} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{tvar}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+    \PYG{n}{x\PYGZus{}range} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}
+        \PYG{n}{mean} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{3} \PYG{o}{*} \PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{variance}\PYG{p}{),}
+        \PYG{n}{mean} \PYG{o}{+} \PYG{l+m+mi}{3} \PYG{o}{*} \PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{variance}\PYG{p}{),}
+        \PYG{l+m+mf}{0.01}\PYG{p}{)}
+    \PYG{n}{mu} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{t}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{x}\PYG{o}{=}\PYG{n}{x\PYGZus{}range}\PYG{p}{,}\PYG{n}{df}\PYG{o}{=}\PYG{n}{n}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n}{loc}\PYG{o}{=}\PYG{n}{mean}\PYG{p}{,}\PYG{n}{scale}\PYG{o}{=}\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{variance}\PYG{o}{/}\PYG{n}{n}\PYG{p}{))}
+    \PYG{k}{return} \PYG{n}{n}\PYG{p}{,} \PYG{n}{mean}\PYG{p}{,} \PYG{n}{variance}\PYG{p}{,} \PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{mu}
+
+\PYG{n}{data\PYGZus{}1} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mf}{13.357}\PYG{p}{,}\PYG{l+m+mf}{14.928}\PYG{p}{,}\PYG{l+m+mf}{14.896}\PYG{p}{,}\PYG{l+m+mf}{15.297}\PYG{p}{,}\PYG{l+m+mf}{14.82}\PYG{p}{,}\PYG{l+m+mf}{12.067}\PYG{p}{,}\PYG{l+m+mf}{14.824}\PYG{p}{,}\PYG{l+m+mf}{13.865}\PYG{p}{,}\PYG{l+m+mf}{17.447}\PYG{p}{]}
+\PYG{n}{data\PYGZus{}2} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mf}{15.98}\PYG{p}{,}\PYG{l+m+mf}{14.206}\PYG{p}{,}\PYG{l+m+mf}{16.011}\PYG{p}{,}\PYG{l+m+mf}{17.25}\PYG{p}{,}\PYG{l+m+mf}{15.993}\PYG{p}{,}\PYG{l+m+mf}{15.722}\PYG{p}{,}\PYG{l+m+mf}{17.143}\PYG{p}{,}\PYG{l+m+mf}{15.23}\PYG{p}{,}\PYG{l+m+mf}{15.125}\PYG{p}{,}
+	\PYG{l+m+mf}{16.609}\PYG{p}{,}\PYG{l+m+mf}{14.735}\PYG{p}{,}\PYG{l+m+mf}{15.881}\PYG{p}{,}\PYG{l+m+mf}{15.789}\PYG{p}{]}
+\PYG{n}{n\PYGZus{}1}\PYG{p}{,} \PYG{n}{mean\PYGZus{}1}\PYG{p}{,} \PYG{n}{variance\PYGZus{}1}\PYG{p}{,} \PYG{n}{x\PYGZus{}range\PYGZus{}1}\PYG{p}{,} \PYG{n}{mu\PYGZus{}1} \PYG{o}{=} \PYG{n}{model}\PYG{p}{(}\PYG{n}{data\PYGZus{}1}\PYG{p}{)}
+\PYG{n}{n\PYGZus{}2}\PYG{p}{,} \PYG{n}{mean\PYGZus{}2}\PYG{p}{,} \PYG{n}{variance\PYGZus{}2}\PYG{p}{,} \PYG{n}{x\PYGZus{}range\PYGZus{}2}\PYG{p}{,} \PYG{n}{mu\PYGZus{}2} \PYG{o}{=} \PYG{n}{model}\PYG{p}{(}\PYG{n}{data\PYGZus{}2}\PYG{p}{)}
+
+\PYG{n}{mu\PYGZus{}1}\PYG{o}{=}\PYG{n}{stats}\PYG{o}{.}\PYG{n}{t}\PYG{o}{.}\PYG{n}{rvs}\PYG{p}{(}\PYG{n}{df}\PYG{o}{=}\PYG{n}{n\PYGZus{}1}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n}{loc}\PYG{o}{=}\PYG{n}{mean\PYGZus{}1}\PYG{p}{,}\PYG{n}{scale}\PYG{o}{=}\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{variance\PYGZus{}1}\PYG{o}{/}\PYG{n}{n\PYGZus{}1}\PYG{p}{),}
+	\PYG{n}{size}\PYG{o}{=}\PYG{l+m+mi}{100000}\PYG{p}{)}
+\PYG{n}{mu\PYGZus{}2}\PYG{o}{=}\PYG{n}{stats}\PYG{o}{.}\PYG{n}{t}\PYG{o}{.}\PYG{n}{rvs}\PYG{p}{(}\PYG{n}{df}\PYG{o}{=}\PYG{n}{n\PYGZus{}2}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n}{loc}\PYG{o}{=}\PYG{n}{mean\PYGZus{}2}\PYG{p}{,}\PYG{n}{scale}\PYG{o}{=}\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{variance\PYGZus{}2}\PYG{o}{/}\PYG{n}{n\PYGZus{}2}\PYG{p}{),}
+	\PYG{n}{size}\PYG{o}{=}\PYG{l+m+mi}{100000}\PYG{p}{)}
+\PYG{n}{mu\PYGZus{}d}\PYG{o}{=}\PYG{n}{mu\PYGZus{}1} \PYG{o}{\PYGZhy{}} \PYG{n}{mu\PYGZus{}2}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{mu\PYGZus{}d}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{l+m+mi}{50}\PYG{p}{,} \PYG{n}{ec}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}white\PYGZsq{}}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}grey\PYGZsq{}}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./3.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{n}{interval\PYGZus{}1}\PYG{o}{=}\PYG{n}{stats}\PYG{o}{.}\PYG{n}{t}\PYG{o}{.}\PYG{n}{interval}\PYG{p}{(}\PYG{l+m+mf}{0.95}\PYG{p}{,}\PYG{n}{df}\PYG{o}{=}\PYG{n}{n\PYGZus{}1}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n}{loc}\PYG{o}{=}\PYG{n}{mean\PYGZus{}1}\PYG{p}{,}
+	\PYG{n}{scale}\PYG{o}{=}\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{variance\PYGZus{}1}\PYG{o}{/}\PYG{n}{n\PYGZus{}1}\PYG{p}{))}
+\PYG{n}{interval\PYGZus{}2}\PYG{o}{=}\PYG{n}{stats}\PYG{o}{.}\PYG{n}{t}\PYG{o}{.}\PYG{n}{interval}\PYG{p}{(}\PYG{l+m+mf}{0.95}\PYG{p}{,}\PYG{n}{df}\PYG{o}{=}\PYG{n}{n\PYGZus{}2}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n}{loc}\PYG{o}{=}\PYG{n}{mean\PYGZus{}2}\PYG{p}{,}
+	\PYG{n}{scale}\PYG{o}{=}\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{variance\PYGZus{}2}\PYG{o}{/}\PYG{n}{n\PYGZus{}2}\PYG{p}{))}
+
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}windshieldy1 mean\PYGZsq{}}\PYG{p}{,}\PYG{n}{model}\PYG{p}{(}\PYG{n}{data\PYGZus{}1}\PYG{p}{)[}\PYG{l+m+mi}{1}\PYG{p}{])}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}windshieldy2 mean\PYGZsq{}}\PYG{p}{,}\PYG{n}{model}\PYG{p}{(}\PYG{n}{data\PYGZus{}2}\PYG{p}{)[}\PYG{l+m+mi}{1}\PYG{p}{])}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}windshieldy1 95}\PYG{l+s+si}{\PYGZpc{} i}\PYG{l+s+s1}{nterval\PYGZsq{}}\PYG{p}{,}\PYG{n}{interval\PYGZus{}1}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}windshieldy2 95}\PYG{l+s+si}{\PYGZpc{} i}\PYG{l+s+s1}{nterval\PYGZsq{}}\PYG{p}{,}\PYG{n}{interval\PYGZus{}2}\PYG{p}{)}
+
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}mean diff 95\PYGZpc{} Intervals\PYGZsq{}}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{mu\PYGZus{}d}\PYG{p}{))}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}mean diff 95\PYGZpc{} Intervals\PYGZsq{}}\PYG{p}{,}\PYG{n}{np}\PYG{o}{.}\PYG{n}{percentile}\PYG{p}{(}\PYG{n}{mu\PYGZus{}d}\PYG{p}{,} \PYG{l+m+mf}{2.5}\PYG{p}{),}\PYG{n}{np}\PYG{o}{.}\PYG{n}{percentile}\PYG{p}{(}\PYG{n}{mu\PYGZus{}d}\PYG{p}{,}\PYG{l+m+mf}{97.5}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Percentile of mu less than 0 \PYGZsq{}}\PYG{n}{stats}\PYG{o}{.}\PYG{n}{percentileofscore}\PYG{p}{(}\PYG{n}{mu\PYGZus{}d}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{),} \PYG{l+s+s1}{\PYGZsq{}\PYGZpc{}\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

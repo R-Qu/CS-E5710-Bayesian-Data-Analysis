@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{p\PYGZus{}control} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{rvs}\PYG{p}{(}\PYG{n}{control\PYGZus{}alpha}\PYG{p}{,} \PYG{n}{control\PYGZus{}beta}\PYG{p}{,} \PYG{n}{size}\PYG{o}{=}\PYG{l+m+mi}{10000}\PYG{p}{)}
+\PYG{n}{p\PYGZus{}treatment} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{rvs}\PYG{p}{(}\PYG{n}{treatment\PYGZus{}alpha}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}beta}\PYG{p}{,} \PYG{n}{size}\PYG{o}{=}\PYG{l+m+mi}{10000}\PYG{p}{)}
+\PYG{n}{odd\PYGZus{}ratio} \PYG{o}{=} \PYG{p}{(}\PYG{n}{p\PYGZus{}treatment}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{o}{\PYGZhy{}}\PYG{n}{p\PYGZus{}treatment}\PYG{p}{))}\PYG{o}{/}\PYG{p}{(}\PYG{n}{p\PYGZus{}control}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{o}{\PYGZhy{}}\PYG{n}{p\PYGZus{}control}\PYG{p}{))}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{odd\PYGZus{}ratio}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{l+m+mi}{40}\PYG{p}{,} \PYG{n}{ec}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}white\PYGZsq{}}\PYG{p}{,}\PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}grey\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./2b.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{n}{control\PYGZus{}interval}\PYG{o}{=}\PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{interval}\PYG{p}{(}\PYG{l+m+mf}{0.95}\PYG{p}{,}\PYG{n}{control\PYGZus{}alpha}\PYG{p}{,} \PYG{n}{control\PYGZus{}beta}\PYG{p}{)}
+\PYG{n}{treatment\PYGZus{}interval}\PYG{o}{=}\PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{interval}\PYG{p}{(}\PYG{l+m+mf}{0.95}\PYG{p}{,}\PYG{n}{treatment\PYGZus{}alpha}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}beta}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Control group 95\PYGZbs{}}\PYG{l+s+si}{\PYGZpc{} i}\PYG{l+s+s1}{nterval\PYGZsq{}}\PYG{p}{,}\PYG{n}{control\PYGZus{}interval}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Treatment 95\PYGZbs{}}\PYG{l+s+si}{\PYGZpc{} i}\PYG{l+s+s1}{nterval\PYGZsq{}}\PYG{p}{,}\PYG{n}{treatment\PYGZus{}interval}\PYG{p}{)}
+
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Control posterior mean: \PYGZsq{}}\PYG{p}{,} \PYG{n+nb}{round}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{control\PYGZus{}posterior}\PYG{p}{),} \PYG{l+m+mi}{4}\PYG{p}{))}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Treatment posterior mean: \PYGZsq{}}\PYG{p}{,} \PYG{n+nb}{round}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{treatment\PYGZus{}posterior}\PYG{p}{),} \PYG{l+m+mi}{4}\PYG{p}{))}
+\end{Verbatim}

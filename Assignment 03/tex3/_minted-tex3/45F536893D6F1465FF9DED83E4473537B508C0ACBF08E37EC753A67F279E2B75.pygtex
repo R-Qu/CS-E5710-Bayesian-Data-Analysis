@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{std\PYGZus{}y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{std}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{n}{ddof}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{scale} \PYG{o}{=} \PYG{n}{sqrt}\PYG{p}{(}\PYG{l+m+mi}{1} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{o}{/}\PYG{n}{n}\PYG{p}{)} \PYG{o}{*} \PYG{n}{std\PYGZus{}y}
+\PYG{n}{y\PYGZus{}posterior\PYGZus{}mu} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{t}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{x}\PYG{o}{=}\PYG{n}{x\PYGZus{}range}\PYG{p}{,}\PYG{n}{df}\PYG{o}{=}\PYG{n}{n}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,}
+                \PYG{n}{loc}\PYG{o}{=}\PYG{n}{estimated\PYGZus{}mean}\PYG{p}{,} \PYG{n}{scale}\PYG{o}{=}\PYG{n}{scale}\PYG{p}{)}
+
+\PYG{n}{y\PYGZus{}posterior\PYGZus{}mu2} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{t}\PYG{o}{.}\PYG{n}{cdf}\PYG{p}{(}\PYG{n}{x}\PYG{o}{=}\PYG{n}{x\PYGZus{}range}\PYG{p}{,}\PYG{n}{df}\PYG{o}{=}\PYG{n}{n}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,}
+                \PYG{n}{loc}\PYG{o}{=}\PYG{n}{estimated\PYGZus{}mean}\PYG{p}{,} \PYG{n}{scale}\PYG{o}{=}\PYG{n}{scale}\PYG{p}{)}
+\PYG{n}{intervalb} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{t}\PYG{o}{.}\PYG{n}{interval}\PYG{p}{(}\PYG{l+m+mf}{0.95}\PYG{p}{,}\PYG{n}{df}\PYG{o}{=}\PYG{n}{n}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,}
+                \PYG{n}{loc}\PYG{o}{=}\PYG{n}{estimated\PYGZus{}mean}\PYG{p}{,} \PYG{n}{scale}\PYG{o}{=}\PYG{n}{scale}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}b) 95}\PYG{l+s+si}{\PYGZpc{}i}\PYG{l+s+s1}{nterval\PYGZsq{}}\PYG{p}{,}\PYG{n}{intervalb}\PYG{p}{)}
+
+\PYG{n}{figure} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{y\PYGZus{}posterior\PYGZus{}mu}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./1b.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}pdf\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{n}{figure} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{y\PYGZus{}posterior\PYGZus{}mu2}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./1b.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}cdf\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

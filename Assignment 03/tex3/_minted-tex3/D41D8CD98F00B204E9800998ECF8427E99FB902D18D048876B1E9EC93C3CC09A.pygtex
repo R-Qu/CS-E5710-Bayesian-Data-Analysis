@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{control\PYGZus{}pdf} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{control\PYGZus{}alpha}\PYG{p}{,} \PYG{n}{control\PYGZus{}beta}\PYG{p}{)}
+\PYG{n}{treatment\PYGZus{}pdf}\PYG{o}{=}\PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}alpha}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}beta}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{control\PYGZus{}pdf}\PYG{p}{,}\PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Control group\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}pdf}\PYG{p}{,}\PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Treatment group\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./2apdf.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{n}{control\PYGZus{}cdf}\PYG{o}{=}\PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{cdf}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{control\PYGZus{}alpha}\PYG{p}{,} \PYG{n}{control\PYGZus{}beta}\PYG{p}{)}
+\PYG{n}{treatment\PYGZus{}cdf}\PYG{o}{=}\PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{cdf}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}alpha}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}beta}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{control\PYGZus{}cdf}\PYG{p}{,}\PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Control group\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}cdf}\PYG{p}{,}\PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Treatment group\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./2acdf.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

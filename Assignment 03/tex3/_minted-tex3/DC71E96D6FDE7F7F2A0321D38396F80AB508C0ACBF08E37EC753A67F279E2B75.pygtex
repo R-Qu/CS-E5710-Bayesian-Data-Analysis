@@ -1,0 +1,35 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{control\PYGZus{}pdf} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{control\PYGZus{}alpha}\PYG{p}{,} \PYG{n}{control\PYGZus{}beta}\PYG{p}{)}
+\PYG{n}{treatment\PYGZus{}pdf} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}alpha}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}beta}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{control\PYGZus{}pdf}\PYG{p}{,}\PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Control group\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}pdf}\PYG{p}{,}\PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Treatment group\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./2apdf.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{n}{control\PYGZus{}cdf} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{cdf}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{control\PYGZus{}alpha}\PYG{p}{,} \PYG{n}{control\PYGZus{}beta}\PYG{p}{)}
+\PYG{n}{treatment\PYGZus{}cdf} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{cdf}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}alpha}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}beta}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{control\PYGZus{}cdf}\PYG{p}{,}\PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Control group\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x\PYGZus{}range}\PYG{p}{,} \PYG{n}{treatment\PYGZus{}cdf}\PYG{p}{,}\PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Treatment group\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./2acdf.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\PYGZbs{}\PYG{n}{end}\PYG{p}{\PYGZob{}}\PYG{n}{minted}
+
+\PYGZbs{}\PYG{n}{begin}\PYG{p}{\PYGZob{}}\PYG{n}{figure}\PYG{p}{\PYGZcb{}[}\PYG{n}{H}\PYG{p}{]}
+\PYGZbs{}\PYG{n}{centering}
+\PYGZbs{}\PYG{n}{subfigure}\PYG{p}{[}\PYG{n}{pdf}\PYG{p}{]\PYGZob{}}
+\PYGZbs{}\PYG{n}{label}\PYG{p}{\PYGZob{}}\PYG{n}{Fig}\PYG{o}{.}\PYG{n}{sub}\PYG{o}{.}\PYG{l+m+mi}{1}\PYG{p}{\PYGZcb{}}
+\PYGZbs{}\PYG{n}{includegraphics}\PYG{p}{[}\PYG{n}{width}\PYG{o}{=}\PYG{l+m+mf}{0.45}\PYGZbs{}\PYG{n}{textwidth}\PYG{p}{]\PYGZob{}}\PYG{l+m+mi}{2}\PYG{n}{apdf}\PYG{o}{.}\PYG{n}{png}\PYG{p}{\PYGZcb{}\PYGZcb{}}
+\PYGZbs{}\PYG{n}{subfigure}\PYG{p}{[}\PYG{n}{cdf}\PYG{p}{]\PYGZob{}}
+\PYGZbs{}\PYG{n}{label}\PYG{p}{\PYGZob{}}\PYG{n}{Fig}\PYG{o}{.}\PYG{n}{sub}\PYG{o}{.}\PYG{l+m+mi}{2}\PYG{p}{\PYGZcb{}}
+\PYGZbs{}\PYG{n}{includegraphics}\PYG{p}{[}\PYG{n}{width}\PYG{o}{=}\PYG{l+m+mf}{0.45}\PYGZbs{}\PYG{n}{textwidth}\PYG{p}{]\PYGZob{}}\PYG{l+m+mi}{2}\PYG{n}{acdf}\PYG{o}{.}\PYG{n}{png}\PYG{p}{\PYGZcb{}\PYGZcb{}}
+\PYGZbs{}\PYG{n}{label}\PYG{p}{\PYGZob{}}\PYG{n}{Fig}\PYG{p}{\PYGZcb{}}
+\PYGZbs{}\PYG{n}{end}\PYG{p}{\PYGZob{}}\PYG{n}{figure}\PYG{p}{\PYGZcb{}}
+
+
+\PYGZbs{}\PYG{n}{section}\PYG{p}{\PYGZob{}}\PYG{n}{Inference} \PYG{k}{for} \PYG{n}{the} \PYG{n}{difference} \PYG{n}{between} \PYG{n}{normal} \PYG{n}{means}\PYG{p}{\PYGZcb{}}
+
+\PYGZbs{}\PYG{n}{textbf}\PYG{p}{\PYGZob{}}\PYG{n}{a}\PYG{p}{)\PYGZcb{}}
+\PYGZbs{}\PYG{n}{begin}\PYG{p}{\PYGZob{}}\PYG{n}{minted}\PYG{p}{\PYGZcb{}[}\PYG{n}{bgcolor}\PYG{o}{=}\PYG{n}{bg}\PYG{p}{,} \PYG{n}{linenos}\PYG{p}{,} \PYG{n}{fontsize}\PYG{o}{=}\PYGZbs{}\PYG{n}{small}\PYG{p}{,} \PYG{n}{autogobble}\PYG{p}{]\PYGZob{}}\PYG{n}{python}\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
