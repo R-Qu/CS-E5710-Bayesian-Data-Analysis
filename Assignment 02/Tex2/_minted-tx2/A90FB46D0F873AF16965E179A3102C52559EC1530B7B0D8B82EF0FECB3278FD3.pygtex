@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{x2\PYGZus{}line} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mf}{0.3}\PYG{p}{,} \PYG{l+m+mf}{0.001}\PYG{p}{)}
+\PYG{n}{posterior2\PYGZus{}line} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{x2\PYGZus{}line}\PYG{p}{,} \PYG{n}{a}\PYG{o}{=}\PYG{l+m+mi}{46}\PYG{p}{,} \PYG{n}{b}\PYG{o}{=}\PYG{l+m+mi}{240}\PYG{p}{)}
+
+\PYG{n}{x2} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{l+m+mf}{0.096}\PYG{p}{,} \PYG{l+m+mf}{0.2}\PYG{p}{,} \PYG{l+m+mf}{0.001}\PYG{p}{)}
+\PYG{n}{posterior2} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{x2}\PYG{p}{,} \PYG{n}{a}\PYG{o}{=}\PYG{l+m+mi}{46}\PYG{p}{,} \PYG{n}{b}\PYG{o}{=}\PYG{l+m+mi}{240}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{fill\PYGZus{}between}\PYG{p}{(}\PYG{n}{x2}\PYG{p}{,} \PYG{n}{posterior2}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.7}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x2\PYGZus{}line}\PYG{p}{,} \PYG{n}{posterior2\PYGZus{}line}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}green\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./cumulative.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

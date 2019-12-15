@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{mean} \PYG{o}{=}\PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{a}\PYG{o}{=}\PYG{l+m+mi}{46}\PYG{p}{,} \PYG{n}{b}\PYG{o}{=}\PYG{l+m+mi}{240}\PYG{p}{,} \PYG{n}{loc}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{scale}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}mean:\PYGZdq{}}\PYG{p}{,}\PYG{n}{mean}\PYG{p}{)}
+\PYG{n}{median} \PYG{o}{=}\PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{median}\PYG{p}{(}\PYG{n}{a}\PYG{o}{=}\PYG{l+m+mi}{46}\PYG{p}{,} \PYG{n}{b}\PYG{o}{=}\PYG{l+m+mi}{240}\PYG{p}{,} \PYG{n}{loc}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{scale}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}median:\PYGZdq{}}\PYG{p}{,}\PYG{n}{median}\PYG{p}{)}
+\PYG{n}{mode} \PYG{o}{=} \PYG{p}{(}\PYG{l+m+mi}{46}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mi}{46}\PYG{o}{+}\PYG{l+m+mi}{240}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{2}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{}mode=(a\PYGZhy{}1)/(a+b\PYGZhy{}2)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}mode:\PYGZdq{}}\PYG{p}{,}\PYG{n}{mode}\PYG{p}{)}
+\end{Verbatim}

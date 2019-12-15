@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{interval}\PYG{o}{=}\PYG{n}{stats}\PYG{o}{.}\PYG{n}{beta}\PYG{o}{.}\PYG{n}{interval}\PYG{p}{(}\PYG{l+m+mf}{0.90}\PYG{p}{,} \PYG{n}{a}\PYG{o}{=}\PYG{l+m+mi}{46}\PYG{p}{,} \PYG{n}{b}\PYG{o}{=}\PYG{l+m+mi}{240}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}90\PYGZbs{}}\PYG{l+s+si}{\PYGZpc{} i}\PYG{l+s+s2}{nterval estimate:\PYGZdq{}}\PYG{p}{,}\PYG{n}{interval}\PYG{p}{)}
+\end{Verbatim}
