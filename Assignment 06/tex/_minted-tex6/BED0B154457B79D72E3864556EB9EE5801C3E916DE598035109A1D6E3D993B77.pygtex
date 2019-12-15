@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+fit Inference \PYG{k}{for} Stan model: anon\PYGZus{}model\PYGZus{}40c9b1c0193fdad43559b9bb79df0201.
+\PYG{l+m}{10} chains, each with \PYG{n+nv}{iter}\PYG{o}{=}\PYG{l+m}{10000}\PYG{p}{;} \PYG{n+nv}{warmup}\PYG{o}{=}\PYG{l+m}{1000}\PYG{p}{;} \PYG{n+nv}{thin}\PYG{o}{=}\PYG{l+m}{1}\PYG{p}{;}
+post\PYGZhy{}warmup draws per \PYG{n+nv}{chain}\PYG{o}{=}\PYG{l+m}{9000}, total post\PYGZhy{}warmup \PYG{n+nv}{draws}\PYG{o}{=}\PYG{l+m}{90000}.
+
+                mean se\PYGZus{}mean     sd   \PYG{l+m}{2}.5\PYGZpc{}    \PYG{l+m}{25}\PYGZpc{}    \PYG{l+m}{50}\PYGZpc{}    \PYG{l+m}{75}\PYGZpc{}  \PYG{l+m}{97}.5\PYGZpc{}  n\PYGZus{}eff   Rhat
+alpha\PYGZus{}beta\PYG{o}{[}\PYG{l+m}{1}\PYG{o}{]}   \PYG{l+m}{0}.97  \PYG{l+m}{5}.2e\PYGZhy{}3    \PYG{l+m}{0}.9  \PYGZhy{}0.66   \PYG{l+m}{0}.35   \PYG{l+m}{0}.93   \PYG{l+m}{1}.55   \PYG{l+m}{2}.84  \PYG{l+m}{29700}    \PYG{l+m}{1}.0
+alpha\PYGZus{}beta\PYG{o}{[}\PYG{l+m}{2}\PYG{o}{]}  \PYG{l+m}{10}.46    \PYG{l+m}{0}.03   \PYG{l+m}{4}.57   \PYG{l+m}{3}.47   \PYG{l+m}{7}.03   \PYG{l+m}{9}.87  \PYG{l+m}{13}.21  \PYG{l+m}{20}.93  \PYG{l+m}{27236}    \PYG{l+m}{1}.0
+\end{Verbatim}

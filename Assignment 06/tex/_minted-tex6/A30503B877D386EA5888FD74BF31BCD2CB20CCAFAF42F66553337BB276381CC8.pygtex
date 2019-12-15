@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{sm} \PYG{o}{=} \PYG{n}{pystan}\PYG{o}{.}\PYG{n}{StanModel}\PYG{p}{(}\PYG{n}{model\PYGZus{}code}\PYG{o}{=}\PYG{n}{stan\PYGZus{}code}\PYG{p}{)}
+\PYG{n}{data} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{(}
+    \PYG{n}{n}\PYG{o}{=}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{number\PYGZus{}of\PYGZus{}animals}\PYG{p}{),}
+    \PYG{n}{deaths}\PYG{o}{=}\PYG{n}{deaths}\PYG{p}{,}
+    \PYG{n}{numb\PYGZus{}of\PYGZus{}animals}\PYG{o}{=}\PYG{n}{number\PYGZus{}of\PYGZus{}animals}\PYG{p}{,}
+    \PYG{n}{doses}\PYG{o}{=}\PYG{n}{doses}\PYG{p}{,}
+    \PYG{n}{mu}\PYG{o}{=}\PYG{n}{mean}\PYG{p}{,}
+    \PYG{n}{cov\PYGZus{}m}\PYG{o}{=}\PYG{n}{cov\PYGZus{}matrix}\PYG{p}{,}
+\PYG{p}{)}
+\PYG{n}{fit} \PYG{o}{=} \PYG{n}{sm}\PYG{o}{.}\PYG{n}{sampling}\PYG{p}{(}\PYG{n}{data}\PYG{o}{=}\PYG{n}{data}\PYG{p}{,} \PYG{n}{chains}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{n+nb}{iter}\PYG{o}{=}\PYG{l+m+mi}{10000}\PYG{p}{,} \PYG{n}{warmup}\PYG{o}{=}\PYG{l+m+mi}{1000}\PYG{p}{)}
+\end{Verbatim}

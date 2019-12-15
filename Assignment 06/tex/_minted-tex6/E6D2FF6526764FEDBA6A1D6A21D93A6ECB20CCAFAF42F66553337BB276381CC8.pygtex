@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{stan\PYGZus{}code} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+s1}{data \PYGZob{}}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=0\PYGZgt{} n;}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=0\PYGZgt{} deaths[n];}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=0\PYGZgt{} numb\PYGZus{}of\PYGZus{}animals[n];}
+\PYG{l+s+s1}{    vector[n] doses;}
+\PYG{l+s+s1}{    vector[2] mu;}
+\PYG{l+s+s1}{    cov\PYGZus{}matrix[2] cov\PYGZus{}m;}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{parameters \PYGZob{}}
+\PYG{l+s+s1}{    vector[2] alpha\PYGZus{}beta;}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{model \PYGZob{}}
+\PYG{l+s+s1}{    alpha\PYGZus{}beta \PYGZti{} multi\PYGZus{}normal(mu, cov\PYGZus{}m);}
+\PYG{l+s+s1}{    deaths\PYGZti{}binomial\PYGZus{}logit(numb\PYGZus{}of\PYGZus{}animals,alpha\PYGZus{}beta[1]}
+\PYG{l+s+s1}{    	+alpha\PYGZus{}beta[2]*doses);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\end{Verbatim}
