@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+         mean se\PYGZus{}mean     sd   \PYG{l+m}{2}.5\PYGZpc{}    \PYG{l+m}{25}\PYGZpc{}    \PYG{l+m}{50}\PYGZpc{}    \PYG{l+m}{75}\PYGZpc{}  \PYG{l+m}{97}.5\PYGZpc{}  n\PYGZus{}eff   Rhat
+mu0     \PYG{l+m}{92}.96    \PYG{l+m}{0}.27   \PYG{l+m}{9}.11  \PYG{l+m}{77}.19  \PYG{l+m}{88}.49  \PYG{l+m}{92}.97  \PYG{l+m}{97}.37 \PYG{l+m}{109}.84   \PYG{l+m}{1122}    \PYG{l+m}{1}.0
+sigma0   \PYG{l+m}{16}.2    \PYG{l+m}{0}.33  \PYG{l+m}{10}.13   \PYG{l+m}{4}.18  \PYG{l+m}{10}.21  \PYG{l+m}{14}.02  \PYG{l+m}{19}.23  \PYG{l+m}{41}.65    \PYG{l+m}{928}    \PYG{l+m}{1}.0
+mu\PYG{o}{[}\PYG{l+m}{1}\PYG{o}{]}   \PYG{l+m}{79}.85    \PYG{l+m}{0}.18   \PYG{l+m}{6}.91  \PYG{l+m}{66}.07  \PYG{l+m}{75}.28   \PYG{l+m}{79}.8  \PYG{l+m}{84}.49  \PYG{l+m}{92}.89   \PYG{l+m}{1467}    \PYG{l+m}{1}.0
+mu\PYG{o}{[}\PYG{l+m}{2}\PYG{o}{]}  \PYG{l+m}{103}.08    \PYG{l+m}{0}.26   \PYG{l+m}{6}.77  \PYG{l+m}{88}.38  \PYG{l+m}{98}.76 \PYG{l+m}{103}.18 \PYG{l+m}{107}.48 \PYG{l+m}{116}.39    \PYG{l+m}{677}    \PYG{l+m}{1}.0
+mu\PYG{o}{[}\PYG{l+m}{3}\PYG{o}{]}   \PYG{l+m}{89}.05    \PYG{l+m}{0}.11   \PYG{l+m}{6}.17  \PYG{l+m}{76}.57  \PYG{l+m}{85}.04   \PYG{l+m}{89}.2  \PYG{l+m}{93}.19 \PYG{l+m}{101}.16   \PYG{l+m}{3223}    \PYG{l+m}{1}.0
+mu\PYG{o}{[}\PYG{l+m}{4}\PYG{o}{]}  \PYG{l+m}{107}.11    \PYG{l+m}{0}.29   \PYG{l+m}{7}.13  \PYG{l+m}{91}.57 \PYG{l+m}{102}.47 \PYG{l+m}{107}.58 \PYG{l+m}{111}.89 \PYG{l+m}{120}.77    \PYG{l+m}{607}    \PYG{l+m}{1}.0
+mu\PYG{o}{[}\PYG{l+m}{5}\PYG{o}{]}    \PYG{l+m}{90}.6     \PYG{l+m}{0}.1   \PYG{l+m}{5}.95  \PYG{l+m}{78}.46  \PYG{l+m}{86}.91   \PYG{l+m}{90}.6  \PYG{l+m}{94}.42  \PYG{l+m}{102}.4   \PYG{l+m}{3606}    \PYG{l+m}{1}.0
+mu\PYG{o}{[}\PYG{l+m}{6}\PYG{o}{]}   \PYG{l+m}{87}.54    \PYG{l+m}{0}.11   \PYG{l+m}{6}.14   \PYG{l+m}{75}.3  \PYG{l+m}{83}.45  \PYG{l+m}{87}.76  \PYG{l+m}{91}.68  \PYG{l+m}{99}.85   \PYG{l+m}{3297}    \PYG{l+m}{1}.0
+sigma   \PYG{l+m}{15}.24    \PYG{l+m}{0}.08   \PYG{l+m}{2}.39  \PYG{l+m}{11}.36  \PYG{l+m}{13}.54  \PYG{l+m}{14}.93  \PYG{l+m}{16}.65  \PYG{l+m}{20}.54    \PYG{l+m}{941}    \PYG{l+m}{1}.0
+ypred6  \PYG{l+m}{87}.32    \PYG{l+m}{0}.26  \PYG{l+m}{16}.48  \PYG{l+m}{54}.75  \PYG{l+m}{76}.32   \PYG{l+m}{87}.2  \PYG{l+m}{98}.16 \PYG{l+m}{120}.36   \PYG{l+m}{4099}    \PYG{l+m}{1}.0
+mu7      \PYG{l+m}{92}.7    \PYG{l+m}{0}.43  \PYG{l+m}{22}.23  \PYG{l+m}{51}.61  \PYG{l+m}{82}.94  \PYG{l+m}{92}.81 \PYG{l+m}{102}.74 \PYG{l+m}{133}.11   \PYG{l+m}{2670}    \PYG{l+m}{1}.0
+lp\PYGZus{}\PYGZus{}   \PYGZhy{}108.8    \PYG{l+m}{0}.07   \PYG{l+m}{2}.49 \PYGZhy{}114.6 \PYGZhy{}110.2 \PYGZhy{}108.4 \PYGZhy{}107.0 \PYGZhy{}105.2   \PYG{l+m}{1377}    \PYG{l+m}{1}.0
+\end{Verbatim}

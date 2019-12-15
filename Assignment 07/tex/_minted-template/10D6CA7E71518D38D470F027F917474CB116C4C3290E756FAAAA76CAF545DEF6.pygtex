@@ -1,0 +1,64 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy.stats} \PYG{k+kn}{import} \PYG{n}{norm}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k+kn}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k+kn}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k+kn}{as} \PYG{n+nn}{pd}
+\PYG{k+kn}{import} \PYG{n+nn}{pystan}
+
+\PYG{n}{drowning\PYGZus{}data} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}fwf}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./drowning.txt\PYGZsq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{values}
+\PYG{n}{years} \PYG{o}{=} \PYG{n}{drowning\PYGZus{}data}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{]}
+\PYG{n}{drowning} \PYG{o}{=} \PYG{n}{drowning\PYGZus{}data}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{]}
+
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}mean:\PYGZdq{}}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{drowning}\PYG{p}{))}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}standard deviation:\PYGZdq{}}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{std}\PYG{p}{(}\PYG{n}{drowning}\PYG{p}{,}\PYG{n}{ddof}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{))}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{years}\PYG{p}{,} \PYG{n}{drowning}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./trend.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{n}{stan\PYGZus{}code} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+s1}{data \PYGZob{}}
+\PYG{l+s+s1}{  int\PYGZlt{}lower=0\PYGZgt{} N; // number of data points}
+\PYG{l+s+s1}{  vector[N] x;    // observation year}
+\PYG{l+s+s1}{  vector[N] y;    // observation number of drowned}
+\PYG{l+s+s1}{  real xpred;     // prediction year}
+\PYG{l+s+s1}{  real tau;}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{parameters \PYGZob{}}
+\PYG{l+s+s1}{  real alpha;}
+\PYG{l+s+s1}{  real beta;}
+\PYG{l+s+s1}{  real\PYGZlt{}lower=0\PYGZgt{} sigma;}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{transformed parameters \PYGZob{}}
+\PYG{l+s+s1}{  vector[N] mu;}
+\PYG{l+s+s1}{  mu = alpha + beta * x;}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{model \PYGZob{}}
+\PYG{l+s+s1}{  beta \PYGZti{} normal(0, tau*tau);}
+\PYG{l+s+s1}{  y \PYGZti{} normal(mu, sigma);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{generated quantities \PYGZob{}}
+\PYG{l+s+s1}{  real ypred;}
+\PYG{l+s+s1}{  ypred = normal\PYGZus{}rng(alpha + beta * xpred, sigma);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+
+\PYG{n}{stan\PYGZus{}model} \PYG{o}{=} \PYG{n}{pystan}\PYG{o}{.}\PYG{n}{StanModel}\PYG{p}{(}\PYG{n}{model\PYGZus{}code}\PYG{o}{=}\PYG{n}{stan\PYGZus{}code}\PYG{p}{)}
+
+\PYG{n}{data} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{(}
+    \PYG{n}{N}\PYG{o}{=}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{years}\PYG{p}{),}
+    \PYG{n}{x}\PYG{o}{=}\PYG{n}{years}\PYG{p}{,}
+    \PYG{n}{y}\PYG{o}{=}\PYG{n}{drowning}\PYG{p}{,}
+    \PYG{n}{xpred}\PYG{o}{=}\PYG{l+m+mi}{2019}\PYG{p}{,}
+    \PYG{n}{tau}\PYG{o}{=}\PYG{l+m+mf}{26.612146647843897}\PYG{p}{,}
+\PYG{p}{)}
+
+\PYG{n}{fit} \PYG{o}{=} \PYG{n}{stan\PYGZus{}model}\PYG{o}{.}\PYG{n}{sampling}\PYG{p}{(}\PYG{n}{data}\PYG{o}{=}\PYG{n}{data}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{fit}\PYG{p}{)}
+
+\PYG{n}{y\PYGZus{}pred} \PYG{o}{=} \PYG{n}{fit}\PYG{o}{.}\PYG{n}{extract}\PYG{p}{()[}\PYG{l+s+s1}{\PYGZsq{}ypred\PYGZsq{}}\PYG{p}{]}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{y\PYGZus{}pred}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{l+m+mi}{20}\PYG{p}{,} \PYG{n}{ec}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}white\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./hist.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

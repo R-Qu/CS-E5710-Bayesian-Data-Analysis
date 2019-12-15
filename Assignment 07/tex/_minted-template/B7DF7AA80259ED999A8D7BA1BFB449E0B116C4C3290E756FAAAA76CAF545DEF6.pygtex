@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{ypred} \PYG{o}{=} \PYG{n}{normal\PYGZus{}rng}\PYG{p}{(}\PYG{n}{alpha} \PYG{o}{+} \PYG{n}{beta} \PYG{o}{*} \PYG{n}{xpred}\PYG{p}{,} \PYG{n}{sigma}\PYG{p}{);}
+\end{Verbatim}

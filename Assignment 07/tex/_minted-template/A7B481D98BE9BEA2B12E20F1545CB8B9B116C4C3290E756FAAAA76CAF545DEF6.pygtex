@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{fit\PYGZus{}hierarchical} \PYG{o}{=} \PYG{n}{model\PYGZus{}hierarchical}\PYG{o}{.}\PYG{n}{sampling}\PYG{p}{(}\PYG{n}{data}\PYG{o}{=}\PYG{n}{data\PYGZus{}hierarchical}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{mu\PYGZus{}data\PYGZus{}hierarchical\PYGZus{}7} \PYG{o}{=} \PYG{n}{fit\PYGZus{}hierarchical}\PYG{o}{.}\PYG{n}{extract}\PYG{p}{()[}\PYG{l+s+s1}{\PYGZsq{}mu7\PYGZsq{}}\PYG{p}{]}
+\end{Verbatim}

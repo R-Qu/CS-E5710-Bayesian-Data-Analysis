@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{fit\PYGZus{}pooled} \PYG{o}{=} \PYG{n}{model\PYGZus{}pooled}\PYG{o}{.}\PYG{n}{sampling}\PYG{p}{(}\PYG{n}{data}\PYG{o}{=}\PYG{n}{data\PYGZus{}pooled}\PYG{p}{)}
+\PYG{n}{y\PYGZus{}pred\PYGZus{}pooled} \PYG{o}{=} \PYG{n}{fit\PYGZus{}pooled}\PYG{o}{.}\PYG{n}{extract}\PYG{p}{()[}\PYG{l+s+s1}{\PYGZsq{}ypred\PYGZsq{}}\PYG{p}{]}
+\end{Verbatim}

@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        mean se\PYGZus{}mean     sd   \PYG{l+m}{2}.5\PYGZpc{}    \PYG{l+m}{25}\PYGZpc{}    \PYG{l+m}{50}\PYGZpc{}    \PYG{l+m}{75}\PYGZpc{}  \PYG{l+m}{97}.5\PYGZpc{}  n\PYGZus{}eff   Rhat
+mu     \PYG{l+m}{92}.99    \PYG{l+m}{0}.06   \PYG{l+m}{3}.53  \PYG{l+m}{86}.23  \PYG{l+m}{90}.54  \PYG{l+m}{93}.01  \PYG{l+m}{95}.32 \PYG{l+m}{100}.04   \PYG{l+m}{2953}    \PYG{l+m}{1}.0
+sigma  \PYG{l+m}{18}.83    \PYG{l+m}{0}.05   \PYG{l+m}{2}.54   \PYG{l+m}{14}.6  \PYG{l+m}{17}.06  \PYG{l+m}{18}.55  \PYG{l+m}{20}.36  \PYG{l+m}{24}.63   \PYG{l+m}{3023}    \PYG{l+m}{1}.0
+ypred  \PYG{l+m}{93}.43    \PYG{l+m}{0}.31  \PYG{l+m}{19}.54  \PYG{l+m}{55}.75  \PYG{l+m}{80}.25  \PYG{l+m}{93}.81 \PYG{l+m}{106}.42  \PYG{l+m}{130}.8   \PYG{l+m}{3953}    \PYG{l+m}{1}.0
+lp\PYGZus{}\PYGZus{}  \PYGZhy{}99.34    \PYG{l+m}{0}.02   \PYG{l+m}{1}.01 \PYGZhy{}102.0 \PYGZhy{}99.73 \PYGZhy{}99.05 \PYGZhy{}98.62 \PYGZhy{}98.34   \PYG{l+m}{1806}    \PYG{l+m}{1}.0
+\end{Verbatim}

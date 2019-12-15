@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{drowning\PYGZus{}data} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}fwf}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./drowning.txt\PYGZsq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{values}
+\PYG{n}{years} \PYG{o}{=} \PYG{n}{drowning\PYGZus{}data}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{]}
+\PYG{n}{drowning} \PYG{o}{=} \PYG{n}{drowning\PYGZus{}data}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{]}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{years}\PYG{p}{,} \PYG{n}{drowning}\PYG{p}{)}
+\end{Verbatim}

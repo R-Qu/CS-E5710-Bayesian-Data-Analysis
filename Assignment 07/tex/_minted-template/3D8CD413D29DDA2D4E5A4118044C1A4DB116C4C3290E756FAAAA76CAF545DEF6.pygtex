@@ -1,0 +1,21 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{stan\PYGZus{}code\PYGZus{}separate} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+s1}{data \PYGZob{}}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=0\PYGZgt{} N;               // number of data points}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=0\PYGZgt{} K;               // number of groups}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=1,upper=K\PYGZgt{} x[N];    // group indicator}
+\PYG{l+s+s1}{    vector[N] y;}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{parameters \PYGZob{}}
+\PYG{l+s+s1}{    vector[K] mu;                 // group means}
+\PYG{l+s+s1}{    vector\PYGZlt{}lower=0\PYGZgt{}[K] sigma;     // group stds}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{model \PYGZob{}}
+\PYG{l+s+s1}{    y \PYGZti{} normal(mu[x], sigma[x]);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{generated quantities \PYGZob{}}
+\PYG{l+s+s1}{    real ypred;}
+\PYG{l+s+s1}{    ypred = normal\PYGZus{}rng(mu[6], sigma[6]);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\end{Verbatim}

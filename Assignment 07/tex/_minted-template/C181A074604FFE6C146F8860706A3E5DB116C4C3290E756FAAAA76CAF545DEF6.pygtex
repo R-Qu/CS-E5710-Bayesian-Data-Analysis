@@ -1,0 +1,28 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{stan\PYGZus{}code} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+s1}{data \PYGZob{}}
+\PYG{l+s+s1}{  int\PYGZlt{}lower=0\PYGZgt{} N; // number of data points}
+\PYG{l+s+s1}{  vector[N] x;    // observation year}
+\PYG{l+s+s1}{  vector[N] y;    // observation number of drowned}
+\PYG{l+s+s1}{  real xpred;     // prediction year}
+\PYG{l+s+s1}{  real tau;}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{parameters \PYGZob{}}
+\PYG{l+s+s1}{  real alpha;}
+\PYG{l+s+s1}{  real beta;}
+\PYG{l+s+s1}{  real\PYGZlt{}lower=0\PYGZgt{} sigma;}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{transformed parameters \PYGZob{}}
+\PYG{l+s+s1}{  vector[N] mu;}
+\PYG{l+s+s1}{  mu = alpha + beta * x;}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{model \PYGZob{}}
+\PYG{l+s+s1}{  beta \PYGZti{} normal(0, tau);}
+\PYG{l+s+s1}{  y \PYGZti{} normal(mu, sigma);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{generated quantities \PYGZob{}}
+\PYG{l+s+s1}{  real ypred;}
+\PYG{l+s+s1}{  ypred = normal\PYGZus{}rng(alpha + beta * xpred, sigma);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\end{Verbatim}
