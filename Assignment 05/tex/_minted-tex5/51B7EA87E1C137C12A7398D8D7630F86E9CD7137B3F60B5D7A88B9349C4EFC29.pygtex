@@ -1,0 +1,90 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k+kn}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy} \PYG{k+kn}{import} \PYG{n}{stats}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k+kn}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{random}
+\PYG{k+kn}{from} \PYG{n+nn}{psrf} \PYG{k+kn}{import} \PYG{n}{psrf}
+\PYG{k+kn}{from} \PYG{n+nn}{bioarraylp} \PYG{k+kn}{import} \PYG{n}{bioassaylp}
+
+\PYG{n}{sigma\PYGZus{}a} \PYG{o}{=} \PYG{l+m+mi}{2}
+\PYG{n}{sigma\PYGZus{}b} \PYG{o}{=} \PYG{l+m+mi}{10}
+\PYG{n}{mu\PYGZus{}a} \PYG{o}{=} \PYG{l+m+mi}{0}
+\PYG{n}{mu\PYGZus{}b} \PYG{o}{=} \PYG{l+m+mi}{10}
+\PYG{n}{corr} \PYG{o}{=} \PYG{l+m+mf}{0.5}
+\PYG{n}{cov\PYGZus{}matrix} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([[}\PYG{n}{sigma\PYGZus{}a}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{corr} \PYG{o}{*} \PYG{n}{sigma\PYGZus{}a} \PYG{o}{*} \PYG{n}{sigma\PYGZus{}b}\PYG{p}{],}
+\PYG{p}{[}\PYG{n}{corr} \PYG{o}{*} \PYG{n}{sigma\PYGZus{}a} \PYG{o}{*} \PYG{n}{sigma\PYGZus{}b}\PYG{p}{,} \PYG{n}{sigma\PYGZus{}b}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{]])}
+\PYG{n}{mean} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{n}{mu\PYGZus{}a}\PYG{p}{,} \PYG{n}{mu\PYGZus{}b}\PYG{p}{])}
+
+\PYG{n}{doses} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.86}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.3}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.05}\PYG{p}{,} \PYG{l+m+mf}{0.72}\PYG{p}{])}
+\PYG{n}{deaths} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{])}
+\PYG{n}{animals} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{])}
+
+\PYG{k}{def} \PYG{n+nf}{get\PYGZus{}next\PYGZus{}pos}\PYG{p}{(}\PYG{n}{pos}\PYG{p}{,} \PYG{n}{cov}\PYG{p}{):}
+
+    \PYG{n}{sample\PYGZus{}pos} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{multivariate\PYGZus{}normal}\PYG{o}{.}\PYG{n}{rvs}\PYG{p}{(}\PYG{n}{pos}\PYG{p}{,} \PYG{n}{cov}\PYG{p}{,} \PYG{n}{size}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{sample\PYGZus{}pos} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{sample\PYGZus{}pos}\PYG{p}{)}
+
+    \PYG{n}{likelihood\PYGZus{}sample\PYGZus{}pos} \PYG{o}{=} \PYG{n}{bioassaylp}\PYG{p}{(}\PYG{n}{sample\PYGZus{}pos}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{sample\PYGZus{}pos}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}
+    	\PYG{n}{doses}\PYG{p}{,}\PYG{n}{deaths}\PYG{p}{,}\PYG{n}{animals}\PYG{p}{)}
+    \PYG{n}{likelihood\PYGZus{}pos} \PYG{o}{=} \PYG{n}{bioassaylp}\PYG{p}{(}\PYG{n}{pos}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}\PYG{n}{pos}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}\PYG{n}{doses}\PYG{p}{,}\PYG{n}{deaths}\PYG{p}{,}\PYG{n}{animals}\PYG{p}{)}
+
+    \PYG{n}{prior\PYGZus{}multivar\PYGZus{}nor} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{multivariate\PYGZus{}normal}\PYG{p}{(}\PYG{n}{mean}\PYG{p}{,} \PYG{n}{cov\PYGZus{}matrix}\PYG{p}{)}
+    \PYG{n}{prior\PYGZus{}sample\PYGZus{}pos} \PYG{o}{=} \PYG{n}{prior\PYGZus{}multivar\PYGZus{}nor}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{sample\PYGZus{}pos}\PYG{p}{)}
+    \PYG{n}{prior\PYGZus{}pos} \PYG{o}{=} \PYG{n}{prior\PYGZus{}multivar\PYGZus{}nor}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{pos}\PYG{p}{)}
+
+    \PYG{n}{post\PYGZus{}sample\PYGZus{}pos} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{n}{likelihood\PYGZus{}sample\PYGZus{}pos}\PYG{p}{)} \PYG{o}{*} \PYG{n}{prior\PYGZus{}sample\PYGZus{}pos}
+    \PYG{n}{post\PYGZus{}pos} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{n}{likelihood\PYGZus{}pos}\PYG{p}{)} \PYG{o}{*} \PYG{n}{prior\PYGZus{}pos}
+
+    \PYG{n}{ratio} \PYG{o}{=} \PYG{n}{post\PYGZus{}sample\PYGZus{}pos} \PYG{o}{/} \PYG{n}{post\PYGZus{}pos}
+
+    \PYG{k}{if} \PYG{n}{ratio} \PYG{o}{\PYGZgt{}=} \PYG{l+m+mi}{1}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{sample\PYGZus{}pos}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{n}{uniform\PYGZus{}random\PYGZus{}sample} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{uniform}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{.}\PYG{n}{rvs}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)[}\PYG{l+m+mi}{0}\PYG{p}{]}
+        \PYG{k}{if} \PYG{n}{uniform\PYGZus{}random\PYGZus{}sample} \PYG{o}{\PYGZlt{}} \PYG{n}{ratio}\PYG{p}{:}
+            \PYG{k}{return} \PYG{n}{sample\PYGZus{}pos}
+
+    \PYG{k}{return} \PYG{n}{pos}
+
+\PYG{k}{def} \PYG{n+nf}{generate\PYGZus{}chains}\PYG{p}{(}\PYG{n}{sample\PYGZus{}size}\PYG{p}{,} \PYG{n}{number\PYGZus{}of\PYGZus{}chains}\PYG{p}{,}\PYG{n}{worm\PYGZus{}up}\PYG{p}{):}
+    \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}number of draws:\PYGZsq{}}\PYG{p}{,} \PYG{n}{sample\PYGZus{}size}\PYG{p}{)}
+    \PYG{n}{chains} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{number\PYGZus{}of\PYGZus{}chains}\PYG{p}{):}
+        \PYG{n}{pos} \PYG{o}{=} \PYG{p}{[}\PYG{n}{random}\PYG{o}{.}\PYG{n}{randint}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{),} \PYG{n}{random}\PYG{o}{.}\PYG{n}{randint}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{30}\PYG{p}{)]}
+        \PYG{n}{chain} \PYG{o}{=} \PYG{p}{[}\PYG{n}{pos}\PYG{p}{]}
+        \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{sample\PYGZus{}size}\PYG{p}{):}
+            \PYG{n}{next\PYGZus{}pos}\PYG{o}{=} \PYG{n}{get\PYGZus{}next\PYGZus{}pos}\PYG{p}{(}\PYG{n}{chain}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{cov\PYGZus{}matrix}\PYG{p}{)}
+            \PYG{n}{chain}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{next\PYGZus{}pos}\PYG{p}{)}
+        \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}starting point:\PYGZsq{}}\PYG{p}{,} \PYG{n}{i}\PYG{p}{,} \PYG{n}{pos}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{} PSRF:\PYGZsq{}}\PYG{p}{,} \PYG{n}{psrf}\PYG{p}{(}\PYG{n}{chain}\PYG{p}{))}
+        \PYG{n}{chains}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{chain}\PYG{p}{)}
+
+    \PYG{n}{wormup\PYGZus{}chains} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{k}{for} \PYG{n}{chain} \PYG{o+ow}{in} \PYG{n}{chains}\PYG{p}{:}
+        \PYG{n}{wormup\PYGZus{}chains}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{chain}\PYG{p}{[}\PYG{n}{worm\PYGZus{}up}\PYG{p}{:])}
+    \PYG{k}{return} \PYG{n}{wormup\PYGZus{}chains}
+
+\PYG{n}{chains}\PYG{o}{=}\PYG{n}{generate\PYGZus{}chains}\PYG{p}{(}\PYG{n}{sample\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mi}{2000}\PYG{p}{,}\PYG{n}{number\PYGZus{}of\PYGZus{}chains}\PYG{o}{=}\PYG{l+m+mi}{15}\PYG{p}{,}\PYG{n}{worm\PYGZus{}up}\PYG{o}{=}\PYG{l+m+mi}{500}\PYG{p}{)}
+
+\PYG{k}{for} \PYG{n}{chain} \PYG{o+ow}{in} \PYG{n}{chains}\PYG{p}{:}
+
+    \PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{chain}\PYG{p}{)[:,} \PYG{l+m+mi}{0}\PYG{p}{]}
+    \PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{chain}\PYG{p}{)[:,} \PYG{l+m+mi}{1}\PYG{p}{]}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlim}\PYG{p}{([}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{p}{])}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylim}\PYG{p}{([}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{40}\PYG{p}{])}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{,}\PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,}\PYG{n}{marker}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}.\PYGZsq{}}\PYG{p}{,}\PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{n}{markersize}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./1.png\PYGZsq{}}\PYG{p}{,} \PYG{n}{dpi}\PYG{o}{=}\PYG{l+m+mi}{150}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}1 chain\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{chain}\PYG{o}{=}\PYG{n}{generate\PYGZus{}chains}\PYG{p}{(}\PYG{n}{sample\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mi}{10000}\PYG{p}{,}\PYG{n}{number\PYGZus{}of\PYGZus{}chains}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n}{worm\PYGZus{}up}\PYG{o}{=}\PYG{l+m+mi}{500}\PYG{p}{)[}\PYG{l+m+mi}{0}\PYG{p}{]}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Potential Scale Reduction Factor (PSRF)\PYGZsq{}}\PYG{p}{,} \PYG{n}{psrf}\PYG{p}{(}\PYG{n}{chain}\PYG{p}{))}
+
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{chain}\PYG{p}{)[:,} \PYG{l+m+mi}{0}\PYG{p}{]}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{chain}\PYG{p}{)[:,} \PYG{l+m+mi}{1}\PYG{p}{]}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlim}\PYG{p}{([}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{p}{])}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylim}\PYG{p}{([}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{40}\PYG{p}{])}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{,}\PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,}\PYG{n}{marker}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}.\PYGZsq{}}\PYG{p}{,}\PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{n}{markersize}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./2\PYGZsq{}}\PYG{p}{,} \PYG{n}{dpi}\PYG{o}{=}\PYG{l+m+mi}{150}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

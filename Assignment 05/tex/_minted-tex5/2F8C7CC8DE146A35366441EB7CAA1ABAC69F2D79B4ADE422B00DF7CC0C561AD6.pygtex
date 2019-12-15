@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+starting point: \PYG{l+m}{0} \PYG{o}{[}\PYG{l+m}{2}, \PYG{l+m}{9}\PYG{o}{]}  PSRF: \PYG{o}{[}\PYG{l+m}{0}.99911346 \PYG{l+m}{0}.99986185\PYG{o}{]}
+starting point: \PYG{l+m}{1} \PYG{o}{[}\PYGZhy{}2, \PYG{l+m}{25}\PYG{o}{]}  PSRF: \PYG{o}{[}\PYG{l+m}{1}.00093458 \PYG{l+m}{1}.0023017 \PYG{o}{]}
+starting point: \PYG{l+m}{2} \PYG{o}{[}\PYG{l+m}{2}, \PYG{l+m}{11}\PYG{o}{]}  PSRF: \PYG{o}{[}\PYG{l+m}{1}.0070037  \PYG{l+m}{1}.00597862\PYG{o}{]}
+starting point: \PYG{l+m}{3} \PYG{o}{[}\PYGZhy{}2, \PYG{l+m}{20}\PYG{o}{]}  PSRF: \PYG{o}{[}\PYG{l+m}{0}.99943286 \PYG{l+m}{1}.02158093\PYG{o}{]}
+starting point: \PYG{l+m}{4} \PYG{o}{[}\PYG{l+m}{1}, \PYG{l+m}{30}\PYG{o}{]}  PSRF: \PYG{o}{[}\PYG{l+m}{0}.9989996 \PYG{l+m}{1}.0038885\PYG{o}{]}
+starting point: \PYG{l+m}{5} \PYG{o}{[}\PYG{l+m}{4}, \PYG{l+m}{17}\PYG{o}{]}  PSRF: \PYG{o}{[}\PYG{l+m}{1}.00256736 \PYG{l+m}{1}.01155597\PYG{o}{]}
+starting point: \PYG{l+m}{6} \PYG{o}{[}\PYG{l+m}{3}, \PYGZhy{}2\PYG{o}{]}  PSRF: \PYG{o}{[}\PYG{l+m}{1}.00447686 \PYG{l+m}{0}.99900009\PYG{o}{]}
+starting point: \PYG{l+m}{7} \PYG{o}{[}\PYG{l+m}{2}, \PYG{l+m}{20}\PYG{o}{]}  PSRF: \PYG{o}{[}\PYG{l+m}{0}.99915257 \PYG{l+m}{1}.01065239\PYG{o}{]}
+starting point: \PYG{l+m}{8} \PYG{o}{[}\PYG{l+m}{1}, \PYGZhy{}1\PYG{o}{]}  PSRF: \PYG{o}{[}\PYG{l+m}{1}.00126403 \PYG{l+m}{1}.00286914\PYG{o}{]}
+starting point: \PYG{l+m}{9} \PYG{o}{[}\PYG{l+m}{3}, \PYG{l+m}{14}\PYG{o}{]}  PSRF: \PYG{o}{[}\PYG{l+m}{1}.02033922 \PYG{l+m}{1}.00360185\PYG{o}{]}
+starting point: \PYG{l+m}{10} \PYG{o}{[}\PYG{l+m}{0}, \PYG{l+m}{25}\PYG{o}{]}  PSRF: \PYG{o}{[}\PYG{l+m}{1}.05446988 \PYG{l+m}{1}.05883113\PYG{o}{]}
+starting point: \PYG{l+m}{11} \PYG{o}{[}\PYGZhy{}2, \PYG{l+m}{27}\PYG{o}{]}  PSRF: \PYG{o}{[}\PYG{l+m}{1}.01003463 \PYG{l+m}{1}.00849742\PYG{o}{]}
+starting point: \PYG{l+m}{12} \PYG{o}{[}\PYGZhy{}1, \PYG{l+m}{18}\PYG{o}{]}  PSRF: \PYG{o}{[}\PYG{l+m}{1}.00291003 \PYG{l+m}{0}.99909747\PYG{o}{]}
+starting point: \PYG{l+m}{13} \PYG{o}{[}\PYGZhy{}1, \PYG{l+m}{6}\PYG{o}{]}  PSRF: \PYG{o}{[}\PYG{l+m}{1}.00533384 \PYG{l+m}{1}.000474  \PYG{o}{]}
+starting point: \PYG{l+m}{14} \PYG{o}{[}\PYG{l+m}{2}, \PYG{l+m}{23}\PYG{o}{]}  PSRF: \PYG{o}{[}\PYG{l+m}{1}.01280837 \PYG{l+m}{0}.99900533\PYG{o}{]}
+\end{Verbatim}

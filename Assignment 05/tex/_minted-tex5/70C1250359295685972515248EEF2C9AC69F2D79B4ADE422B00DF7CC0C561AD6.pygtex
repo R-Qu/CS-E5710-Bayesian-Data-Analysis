@@ -1,0 +1,28 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+def get\PYGZus{}next\PYGZus{}pos\PYG{o}{(}pos, cov\PYG{o}{)}:
+
+    \PYG{n+nv}{sample\PYGZus{}pos} \PYG{o}{=} stats.multivariate\PYGZus{}normal.rvs\PYG{o}{(}pos, cov, \PYG{n+nv}{size}\PYG{o}{=}\PYG{l+m}{1}\PYG{o}{)}
+    \PYG{n+nv}{sample\PYGZus{}pos} \PYG{o}{=} np.array\PYG{o}{(}sample\PYGZus{}pos\PYG{o}{)}
+
+    \PYG{n+nv}{likelihood\PYGZus{}sample\PYGZus{}pos} \PYG{o}{=} bioassaylp\PYG{o}{(}sample\PYGZus{}pos\PYG{o}{[}\PYG{l+m}{0}\PYG{o}{]}, sample\PYGZus{}pos\PYG{o}{[}\PYG{l+m}{1}\PYG{o}{]},
+    	doses,deaths,animals\PYG{o}{)}
+    \PYG{n+nv}{likelihood\PYGZus{}pos} \PYG{o}{=} bioassaylp\PYG{o}{(}pos\PYG{o}{[}\PYG{l+m}{0}\PYG{o}{]},pos\PYG{o}{[}\PYG{l+m}{1}\PYG{o}{]},doses,deaths,animals\PYG{o}{)}
+
+    \PYG{n+nv}{prior\PYGZus{}multivar\PYGZus{}nor} \PYG{o}{=} stats.multivariate\PYGZus{}normal\PYG{o}{(}mean, cov\PYGZus{}matrix\PYG{o}{)}
+    \PYG{n+nv}{prior\PYGZus{}sample\PYGZus{}pos} \PYG{o}{=} prior\PYGZus{}multivar\PYGZus{}nor.pdf\PYG{o}{(}sample\PYGZus{}pos\PYG{o}{)}
+    \PYG{n+nv}{prior\PYGZus{}pos} \PYG{o}{=} prior\PYGZus{}multivar\PYGZus{}nor.pdf\PYG{o}{(}pos\PYG{o}{)}
+
+    \PYG{n+nv}{post\PYGZus{}sample\PYGZus{}pos}\PYG{o}{=}np.exp\PYG{o}{(}likelihood\PYGZus{}sample\PYGZus{}pos\PYG{o}{)}*prior\PYGZus{}sample\PYGZus{}pos
+    \PYG{n+nv}{post\PYGZus{}pos} \PYG{o}{=} np.exp\PYG{o}{(}likelihood\PYGZus{}pos\PYG{o}{)} * prior\PYGZus{}pos
+
+    \PYG{n+nv}{ratio} \PYG{o}{=} post\PYGZus{}sample\PYGZus{}pos / post\PYGZus{}pos
+
+    \PYG{k}{if} ratio \PYGZgt{}\PYG{o}{=} \PYG{l+m}{1}:
+        \PYG{k}{return} sample\PYGZus{}pos
+    \PYG{k}{else}:
+        \PYG{n+nv}{uniform\PYGZus{}random\PYGZus{}sample} \PYG{o}{=} stats.uniform\PYG{o}{(}\PYG{l+m}{0},1\PYG{o}{)}.rvs\PYG{o}{(}\PYG{l+m}{1}\PYG{o}{)[}\PYG{l+m}{0}\PYG{o}{]}
+        \PYG{k}{if} uniform\PYGZus{}random\PYGZus{}sample \PYGZlt{} ratio:
+            \PYG{k}{return} sample\PYGZus{}pos
+
+    \PYG{k}{return} pos
+\end{Verbatim}

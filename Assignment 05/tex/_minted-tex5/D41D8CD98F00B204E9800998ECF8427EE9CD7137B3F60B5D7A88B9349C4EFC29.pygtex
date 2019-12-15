@@ -1,0 +1,28 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{get\PYGZus{}next\PYGZus{}pos}\PYG{p}{(}\PYG{n}{pos}\PYG{p}{,} \PYG{n}{cov}\PYG{p}{):}
+
+    \PYG{n}{sample\PYGZus{}pos} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{multivariate\PYGZus{}normal}\PYG{o}{.}\PYG{n}{rvs}\PYG{p}{(}\PYG{n}{pos}\PYG{p}{,} \PYG{n}{cov}\PYG{p}{,} \PYG{n}{size}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{sample\PYGZus{}pos} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{sample\PYGZus{}pos}\PYG{p}{)}
+
+    \PYG{n}{likelihood\PYGZus{}sample\PYGZus{}pos} \PYG{o}{=} \PYG{n}{bioassaylp}\PYG{p}{(}\PYG{n}{sample\PYGZus{}pos}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{sample\PYGZus{}pos}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}
+    	\PYG{n}{doses}\PYG{p}{,}\PYG{n}{deaths}\PYG{p}{,}\PYG{n}{animals}\PYG{p}{)}
+    \PYG{n}{likelihood\PYGZus{}pos} \PYG{o}{=} \PYG{n}{bioassaylp}\PYG{p}{(}\PYG{n}{pos}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],}\PYG{n}{pos}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],}\PYG{n}{doses}\PYG{p}{,}\PYG{n}{deaths}\PYG{p}{,}\PYG{n}{animals}\PYG{p}{)}
+
+    \PYG{n}{prior\PYGZus{}multivar\PYGZus{}nor} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{multivariate\PYGZus{}normal}\PYG{p}{(}\PYG{n}{mean}\PYG{p}{,} \PYG{n}{cov\PYGZus{}matrix}\PYG{p}{)}
+    \PYG{n}{prior\PYGZus{}sample\PYGZus{}pos} \PYG{o}{=} \PYG{n}{prior\PYGZus{}multivar\PYGZus{}nor}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{sample\PYGZus{}pos}\PYG{p}{)}
+    \PYG{n}{prior\PYGZus{}pos} \PYG{o}{=} \PYG{n}{prior\PYGZus{}multivar\PYGZus{}nor}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{pos}\PYG{p}{)}
+
+    \PYG{n}{post\PYGZus{}sample\PYGZus{}pos}\PYG{o}{=}\PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{n}{likelihood\PYGZus{}sample\PYGZus{}pos}\PYG{p}{)}\PYG{o}{*}\PYG{n}{prior\PYGZus{}sample\PYGZus{}pos}
+    \PYG{n}{post\PYGZus{}pos} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{n}{likelihood\PYGZus{}pos}\PYG{p}{)} \PYG{o}{*} \PYG{n}{prior\PYGZus{}pos}
+
+    \PYG{n}{ratio} \PYG{o}{=} \PYG{n}{post\PYGZus{}sample\PYGZus{}pos} \PYG{o}{/} \PYG{n}{post\PYGZus{}pos}
+
+    \PYG{k}{if} \PYG{n}{ratio} \PYG{o}{\PYGZgt{}=} \PYG{l+m+mi}{1}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{sample\PYGZus{}pos}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{n}{uniform\PYGZus{}random\PYGZus{}sample} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{uniform}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{.}\PYG{n}{rvs}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)[}\PYG{l+m+mi}{0}\PYG{p}{]}
+        \PYG{k}{if} \PYG{n}{uniform\PYGZus{}random\PYGZus{}sample} \PYG{o}{\PYGZlt{}} \PYG{n}{ratio}\PYG{p}{:}
+            \PYG{k}{return} \PYG{n}{sample\PYGZus{}pos}
+
+    \PYG{k}{return} \PYG{n}{pos}
+\end{Verbatim}

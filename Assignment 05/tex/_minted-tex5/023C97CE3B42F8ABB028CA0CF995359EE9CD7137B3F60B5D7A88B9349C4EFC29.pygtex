@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{chains} \PYG{o}{=} \PYG{n}{generate\PYGZus{}chains}\PYG{p}{(}\PYG{n}{sample\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mi}{1000}\PYG{p}{,} \PYG{n}{number\PYGZus{}of\PYGZus{}chains}\PYG{o}{=}\PYG{l+m+mi}{15}\PYG{p}{)}
+\end{Verbatim}
