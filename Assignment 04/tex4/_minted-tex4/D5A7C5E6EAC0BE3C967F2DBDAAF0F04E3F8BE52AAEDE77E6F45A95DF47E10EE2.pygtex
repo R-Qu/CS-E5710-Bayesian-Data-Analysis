@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{beta\PYGZus{}resample} \PYG{o}{=} \PYG{n}{resamples}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{]}
+\PYG{n}{alpha\PYGZus{}resample} \PYG{o}{=} \PYG{n}{resamples}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{]}
+\PYG{n}{pos} \PYG{o}{=} \PYG{n}{beta\PYGZus{}resample} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}
+\PYG{n}{p\PYGZus{}harmful} \PYG{o}{=} \PYG{p}{(}\PYG{n}{beta\PYGZus{}resample}\PYG{p}{[}\PYG{n}{pos}\PYG{p}{]}\PYG{o}{.}\PYG{n}{size}\PYG{o}{/}\PYG{p}{(}\PYG{n}{beta\PYGZus{}resample}\PYG{o}{.}\PYG{n}{size} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{))}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Probability that the drug is harmful:\PYGZsq{}}\PYG{p}{,} \PYG{n}{p\PYGZus{}harmful}\PYG{p}{)}
+\end{Verbatim}

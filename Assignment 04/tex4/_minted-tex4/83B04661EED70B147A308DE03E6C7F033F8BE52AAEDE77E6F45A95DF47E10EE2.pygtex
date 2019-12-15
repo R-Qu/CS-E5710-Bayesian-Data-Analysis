@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{scode} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{choice}\PYG{p}{(}\PYG{n}{a}\PYG{o}{=}\PYG{l+m+mi}{10000}\PYG{p}{,}\PYG{n}{size}\PYG{o}{=}\PYG{l+m+mi}{1000}\PYG{p}{,}\PYG{n}{replace}\PYG{o}{=}\PYG{n+nb+bp}{False}\PYG{p}{,}\PYG{n}{p}\PYG{o}{=}\PYG{n}{weights\PYGZus{}norm}\PYG{p}{)}
+\PYG{n}{resamples} \PYG{o}{=} \PYG{n}{samples}\PYG{p}{[}\PYG{n}{scode}\PYG{p}{]}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}mean of resampled alpha: \PYGZsq{}}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{resamples}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{]))}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}mean of resampled beta: \PYGZsq{}}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{resamples}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{]))}
+\end{Verbatim}

@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{p\PYGZus{}log\PYGZus{}prior}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{):}
+
+    \PYG{n}{prior}\PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{multivariate\PYGZus{}normal}\PYG{p}{(}\PYG{n}{mean}\PYG{p}{,} \PYG{n}{cov}\PYG{p}{)}
+    \PYG{n}{pos} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dstack}\PYG{p}{((}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{))}
+    \PYG{n}{log\PYGZus{}prior} \PYG{o}{=} \PYG{n}{prior}\PYG{o}{.}\PYG{n}{logpdf}\PYG{p}{(}\PYG{n}{pos}\PYG{p}{)}
+
+    \PYG{k}{return} \PYG{n}{log\PYGZus{}prior}
+
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}test prior:\PYGZsq{}}\PYG{p}{,}\PYG{n}{p\PYGZus{}log\PYGZus{}prior}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{9}\PYG{p}{))}
+\end{Verbatim}

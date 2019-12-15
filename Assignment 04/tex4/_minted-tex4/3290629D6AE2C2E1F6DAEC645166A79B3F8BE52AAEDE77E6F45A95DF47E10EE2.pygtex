@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{posterior\PYGZus{}mean} \PYG{o}{=} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{weights}\PYG{p}{[} \PYG{p}{:} \PYG{p}{,} \PYG{n+nb+bp}{None}\PYG{p}{]} \PYG{o}{*} \PYG{n}{samples}\PYG{p}{)} \PYG{o}{/} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{weights}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}posterior mean of alpha : \PYGZsq{}}\PYG{p}{,} \PYG{n}{posterior\PYGZus{}mean}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{])}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}posterior mean of beta  : \PYGZsq{}}\PYG{p}{,} \PYG{n}{posterior\PYGZus{}mean}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])}
+\end{Verbatim}

@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{prior} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{multivariate\PYGZus{}normal}\PYG{p}{(}\PYG{n}{mean}\PYG{p}{,} \PYG{n}{cov}\PYG{p}{)}
+\PYG{n}{samples} \PYG{o}{=} \PYG{n}{prior}\PYG{o}{.}\PYG{n}{rvs}\PYG{p}{(}\PYG{l+m+mi}{10000}\PYG{p}{)}
+\end{Verbatim}

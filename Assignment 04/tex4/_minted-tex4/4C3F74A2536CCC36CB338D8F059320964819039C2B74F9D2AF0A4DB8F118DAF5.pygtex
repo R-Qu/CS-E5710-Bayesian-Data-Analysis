@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+mean: \PYG{o}{[} \PYG{l+m}{0} \PYG{l+m}{10}\PYG{o}{]}
+covariance: \PYG{o}{[[}  \PYG{l+m}{4}.  \PYG{l+m}{10}.\PYG{o}{]}
+	 \PYG{o}{[} \PYG{l+m}{10}. \PYG{l+m}{100}.\PYG{o}{]]}
+\end{Verbatim}

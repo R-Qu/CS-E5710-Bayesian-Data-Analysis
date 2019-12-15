@@ -1,0 +1,24 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{dose} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.86}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.30}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.05}\PYG{p}{,} \PYG{l+m+mf}{0.72}\PYG{p}{])}
+\PYG{n}{deaths} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{])}
+\PYG{n}{animals} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{])}
+
+\PYG{k}{def} \PYG{n+nf}{p\PYGZus{}log\PYGZus{}posterior}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{,} \PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{n}\PYG{p}{):}
+\PYG{c+c1}{\PYGZsh{}logarithm of the density of the prior distribution}
+    \PYG{n}{prior}\PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{multivariate\PYGZus{}normal}\PYG{p}{(}\PYG{n}{mean}\PYG{p}{,} \PYG{n}{cov}\PYG{p}{)}
+    \PYG{n}{pos} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dstack}\PYG{p}{((}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{))}
+    \PYG{n}{log\PYGZus{}prior} \PYG{o}{=} \PYG{n}{prior}\PYG{o}{.}\PYG{n}{logpdf}\PYG{p}{(}\PYG{n}{pos}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}logarithm of the density of the likelihood distribution}
+    \PYG{n}{alpha} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{expand\PYGZus{}dims}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{beta} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{expand\PYGZus{}dims}\PYG{p}{(}\PYG{n}{beta}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{t} \PYG{o}{=} \PYG{n}{alpha} \PYG{o}{+} \PYG{n}{beta}\PYG{o}{*}\PYG{n}{x}
+    \PYG{n}{et} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{n}{t}\PYG{p}{)}
+    \PYG{n}{z} \PYG{o}{=} \PYG{n}{et}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mf}{1.}\PYG{o}{+}\PYG{n}{et}\PYG{p}{)}
+    \PYG{n}{log\PYGZus{}likelihood} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{y}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{log}\PYG{p}{(}\PYG{n}{z}\PYG{p}{)}\PYG{o}{+} \PYG{p}{(}\PYG{n}{n}\PYG{o}{\PYGZhy{}}\PYG{n}{y}\PYG{p}{)}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{log}\PYG{p}{(}\PYG{l+m+mf}{1.0}\PYG{o}{\PYGZhy{}}\PYG{n}{z}\PYG{p}{),} \PYG{n}{axis}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{}logarithm of the density of the posterior distribution}
+    \PYG{n}{log\PYGZus{}posterior} \PYG{o}{=} \PYG{n}{log\PYGZus{}prior} \PYG{o}{+} \PYG{n}{log\PYGZus{}likelihood}
+    \PYG{k}{return} \PYG{n}{log\PYGZus{}posterior}
+
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}test posterior\PYGZsq{}}\PYG{p}{,}\PYG{n}{p\PYGZus{}log\PYGZus{}posterior}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{9}\PYG{p}{,} \PYG{n}{dose}\PYG{p}{,} \PYG{n}{deaths}\PYG{p}{,} \PYG{n}{animals}\PYG{p}{))}
+\end{Verbatim}

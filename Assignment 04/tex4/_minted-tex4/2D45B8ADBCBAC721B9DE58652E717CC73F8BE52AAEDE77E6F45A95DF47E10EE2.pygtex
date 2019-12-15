@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{s\PYGZus{}eff} \PYG{o}{=} \PYG{l+m+mi}{1} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{weights\PYGZus{}norm}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}effective sample size: \PYGZsq{}}\PYG{p}{,} \PYG{n}{s\PYGZus{}eff}\PYG{p}{)}
+\end{Verbatim}

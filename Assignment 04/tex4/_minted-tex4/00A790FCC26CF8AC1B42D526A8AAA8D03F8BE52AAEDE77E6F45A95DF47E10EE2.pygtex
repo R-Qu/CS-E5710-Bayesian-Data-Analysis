@@ -1,0 +1,164 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k+kn}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{from} \PYG{n+nn}{mpl\PYGZus{}toolkits.mplot3d} \PYG{k+kn}{import} \PYG{n}{Axes3D}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy} \PYG{k+kn}{import} \PYG{n}{stats}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k+kn}{as} \PYG{n+nn}{np}
+
+\PYG{k}{def} \PYG{n+nf}{bioassaylp}\PYG{p}{(}\PYG{n}{a}\PYG{p}{,} \PYG{n}{b}\PYG{p}{,} \PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{n}\PYG{p}{):}
+    \PYG{c+c1}{\PYGZsh{} last axis for the data points}
+    \PYG{n}{a} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{expand\PYGZus{}dims}\PYG{p}{(}\PYG{n}{a}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{b} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{expand\PYGZus{}dims}\PYG{p}{(}\PYG{n}{b}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{} these help using chain rule in derivation}
+    \PYG{n}{t} \PYG{o}{=} \PYG{n}{a} \PYG{o}{+} \PYG{n}{b}\PYG{o}{*}\PYG{n}{x}
+    \PYG{n}{et} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{n}{t}\PYG{p}{)}
+    \PYG{n}{z} \PYG{o}{=} \PYG{n}{et}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mf}{1.}\PYG{o}{+}\PYG{n}{et}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{} negative log posterior (error function to be minimized)}
+    \PYG{n}{lp} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{y}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{log}\PYG{p}{(}\PYG{n}{z}\PYG{p}{)}\PYG{o}{+} \PYG{p}{(}\PYG{n}{n}\PYG{o}{\PYGZhy{}}\PYG{n}{y}\PYG{p}{)}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{log}\PYG{p}{(}\PYG{l+m+mf}{1.0}\PYG{o}{\PYGZhy{}}\PYG{n}{z}\PYG{p}{),} \PYG{n}{axis}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{lp}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{a)}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{n}{mu\PYGZus{}a} \PYG{o}{=} \PYG{l+m+mi}{0}
+\PYG{n}{sigma\PYGZus{}a} \PYG{o}{=} \PYG{l+m+mi}{2}
+\PYG{n}{mu\PYGZus{}b} \PYG{o}{=} \PYG{l+m+mi}{10}
+\PYG{n}{sigma\PYGZus{}b} \PYG{o}{=} \PYG{l+m+mi}{10}
+\PYG{n}{corr} \PYG{o}{=} \PYG{l+m+mf}{0.5}
+
+\PYG{n}{mean} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{n}{mu\PYGZus{}a}\PYG{p}{,} \PYG{n}{mu\PYGZus{}b}\PYG{p}{])}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}mean:\PYGZsq{}}\PYG{p}{,}\PYG{n}{mean}\PYG{p}{)}
+
+\PYG{n}{cov} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([[}\PYG{n}{sigma\PYGZus{}a}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{corr} \PYG{o}{*} \PYG{n}{sigma\PYGZus{}a} \PYG{o}{*} \PYG{n}{sigma\PYGZus{}b}\PYG{p}{],}
+\PYG{p}{[}\PYG{n}{corr} \PYG{o}{*} \PYG{n}{sigma\PYGZus{}a} \PYG{o}{*} \PYG{n}{sigma\PYGZus{}b}\PYG{p}{,} \PYG{n}{sigma\PYGZus{}b}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{]])}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}covariance:\PYGZsq{}}\PYG{p}{,}\PYG{n}{cov}\PYG{p}{)}
+
+\PYG{n}{alpha}\PYG{p}{,}\PYG{n}{beta} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{meshgrid}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{l+m+mi}{100}\PYG{p}{),} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{10}\PYG{p}{,}\PYG{l+m+mi}{30}\PYG{p}{,}\PYG{l+m+mi}{100}\PYG{p}{))}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{b)}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+
+\PYG{k}{def} \PYG{n+nf}{p\PYGZus{}log\PYGZus{}prior}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{):}
+
+    \PYG{n}{prior}\PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{multivariate\PYGZus{}normal}\PYG{p}{(}\PYG{n}{mean}\PYG{p}{,} \PYG{n}{cov}\PYG{p}{)}
+    \PYG{n}{pos} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dstack}\PYG{p}{((}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{))}
+    \PYG{n}{log\PYGZus{}prior} \PYG{o}{=} \PYG{n}{prior}\PYG{o}{.}\PYG{n}{logpdf}\PYG{p}{(}\PYG{n}{pos}\PYG{p}{)}
+
+    \PYG{k}{return} \PYG{n}{log\PYGZus{}prior}
+\PYG{c+c1}{\PYGZsh{}print(\PYGZsq{}test\PYGZsq{},p\PYGZus{}log\PYGZus{}prior(3,9))}
+
+\PYG{n}{dose} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.86}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.3}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.05}\PYG{p}{,} \PYG{l+m+mf}{0.72}\PYG{p}{])}
+\PYG{n}{deaths} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{])}
+\PYG{n}{animals} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{])}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{c)}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+
+\PYG{k}{def} \PYG{n+nf}{p\PYGZus{}log\PYGZus{}posterior}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{,} \PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{n}\PYG{p}{):}
+    \PYG{n}{prior}\PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{multivariate\PYGZus{}normal}\PYG{p}{(}\PYG{n}{mean}\PYG{p}{,} \PYG{n}{cov}\PYG{p}{)}
+    \PYG{n}{pos} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dstack}\PYG{p}{((}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{))}
+    \PYG{n}{log\PYGZus{}prior} \PYG{o}{=} \PYG{n}{prior}\PYG{o}{.}\PYG{n}{logpdf}\PYG{p}{(}\PYG{n}{pos}\PYG{p}{)}
+
+    \PYG{n}{alpha} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{expand\PYGZus{}dims}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{beta} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{expand\PYGZus{}dims}\PYG{p}{(}\PYG{n}{beta}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{t} \PYG{o}{=} \PYG{n}{alpha} \PYG{o}{+} \PYG{n}{beta}\PYG{o}{*}\PYG{n}{x}
+    \PYG{n}{et} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{n}{t}\PYG{p}{)}
+    \PYG{n}{z} \PYG{o}{=} \PYG{n}{et}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mf}{1.}\PYG{o}{+}\PYG{n}{et}\PYG{p}{)}
+    \PYG{n}{log\PYGZus{}likelihood} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{y}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{log}\PYG{p}{(}\PYG{n}{z}\PYG{p}{)}\PYG{o}{+} \PYG{p}{(}\PYG{n}{n}\PYG{o}{\PYGZhy{}}\PYG{n}{y}\PYG{p}{)}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{log}\PYG{p}{(}\PYG{l+m+mf}{1.0}\PYG{o}{\PYGZhy{}}\PYG{n}{z}\PYG{p}{),} \PYG{n}{axis}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+    \PYG{n}{log\PYGZus{}posterior} \PYG{o}{=} \PYG{n}{log\PYGZus{}prior} \PYG{o}{+} \PYG{n}{log\PYGZus{}likelihood}
+
+    \PYG{k}{return} \PYG{n}{log\PYGZus{}posterior}
+\PYG{c+c1}{\PYGZsh{}print(\PYGZsq{}testposterior\PYGZsq{},p\PYGZus{}log\PYGZus{}posterior(3, 9, dose, deaths, animals))}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{d)}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{n}{alpha}\PYG{p}{,}\PYG{n}{beta} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{meshgrid}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{l+m+mi}{100}\PYG{p}{),} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{10}\PYG{p}{,}\PYG{l+m+mi}{30}\PYG{p}{,}\PYG{l+m+mi}{100}\PYG{p}{))}
+\PYG{n}{posterior} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{n}{p\PYGZus{}log\PYGZus{}posterior}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{,} \PYG{n}{dose}\PYG{p}{,} \PYG{n}{deaths}\PYG{p}{,} \PYG{n}{animals}\PYG{p}{))}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{contourf}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{,}\PYG{n}{posterior}\PYG{p}{,} \PYG{n}{cmap}\PYG{o}{=}\PYG{n}{plt}\PYG{o}{.}\PYG{n}{cm}\PYG{o}{.}\PYG{n}{Greys}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}alpha\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}beta\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Posterior Distribution\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{(}\PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mf}{0.8}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.2}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{colorbar}\PYG{p}{(}\PYG{n}{plt}\PYG{o}{.}\PYG{n}{contourf}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{,} \PYG{n}{posterior}\PYG{p}{,} \PYG{n}{cmap}\PYG{o}{=}\PYG{n}{plt}\PYG{o}{.}\PYG{n}{cm}\PYG{o}{.}\PYG{n}{Greys}\PYG{p}{))}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./log\PYGZus{}posterior.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{e) 2. Sample draws of alpha and beta from the prior distribution.}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{n}{prior} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{multivariate\PYGZus{}normal}\PYG{p}{(}\PYG{n}{mean}\PYG{p}{,} \PYG{n}{cov}\PYG{p}{)}
+\PYG{n}{samples} \PYG{o}{=} \PYG{n}{prior}\PYG{o}{.}\PYG{n}{rvs}\PYG{p}{(}\PYG{l+m+mi}{10000}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}print(\PYGZsq{}Shape of the samples from prior: \PYGZsq{}, samples.shape)}
+
+\PYG{n}{theta} \PYG{o}{=} \PYG{l+m+mi}{1} \PYG{o}{/} \PYG{p}{(}\PYG{l+m+mi}{1}\PYG{o}{+}\PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{p}{(}\PYG{n}{samples}\PYG{p}{[:,}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{n+nb+bp}{None}\PYG{p}{]} \PYG{o}{+} \PYG{n}{samples}\PYG{p}{[:,}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n+nb+bp}{None}\PYG{p}{]} \PYG{o}{*} \PYG{n}{dose}\PYG{p}{)))}
+\PYG{n}{weights} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{prod}\PYG{p}{(}
+    \PYG{n}{theta}\PYG{o}{**}\PYG{n}{deaths} \PYG{o}{*} \PYG{p}{(}\PYG{l+m+mi}{1} \PYG{o}{\PYGZhy{}} \PYG{n}{theta}\PYG{p}{)}\PYG{o}{**}\PYG{p}{(}\PYG{n}{animals} \PYG{o}{\PYGZhy{}} \PYG{n}{deaths}\PYG{p}{),} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+\PYG{n}{weights\PYGZus{}norm} \PYG{o}{=} \PYG{p}{(}\PYG{n}{weights}\PYG{p}{)} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{weights}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}print(\PYGZsq{}Shape of the weights of the likelihood: \PYGZsq{}, weights.shape)}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{f)}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{n}{posterior\PYGZus{}mean} \PYG{o}{=} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{weights}\PYG{p}{[} \PYG{p}{:} \PYG{p}{,} \PYG{n+nb+bp}{None}\PYG{p}{]} \PYG{o}{*} \PYG{n}{samples}\PYG{p}{)} \PYG{o}{/} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{weights}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}posterior mean of alpha : \PYGZsq{}}\PYG{p}{,} \PYG{n}{posterior\PYGZus{}mean}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{])}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}posterior mean of beta  : \PYGZsq{}}\PYG{p}{,} \PYG{n}{posterior\PYGZus{}mean}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{g)}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{n}{s\PYGZus{}eff} \PYG{o}{=} \PYG{l+m+mi}{1} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{weights\PYGZus{}norm}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}effective sample size: \PYGZsq{}}\PYG{p}{,} \PYG{n}{s\PYGZus{}eff}\PYG{p}{)}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{h)}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{n}{scode} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{choice}\PYG{p}{(}\PYG{n}{a}\PYG{o}{=}\PYG{l+m+mi}{10000}\PYG{p}{,}\PYG{n}{size}\PYG{o}{=}\PYG{l+m+mi}{1000}\PYG{p}{,}\PYG{n}{replace}\PYG{o}{=}\PYG{n+nb+bp}{False}\PYG{p}{,}\PYG{n}{p}\PYG{o}{=}\PYG{n}{weights\PYGZus{}norm}\PYG{p}{)}
+\PYG{n}{resamples} \PYG{o}{=} \PYG{n}{samples}\PYG{p}{[}\PYG{n}{scode}\PYG{p}{]}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}mean of resampled alpha: \PYGZsq{}}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{resamples}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{]))}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}mean of resampled beta: \PYGZsq{}}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{resamples}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{]))}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlim}\PYG{p}{([}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{])}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylim}\PYG{p}{([}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{30}\PYG{p}{])}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}alpha\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}beta\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{(}\PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mf}{0.8}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.2}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{resamples}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{resamples}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{],}\PYG{l+m+mi}{8}\PYG{p}{,}\PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}grey\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Posterior Samples\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./posterior\PYGZus{}samples.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlim}\PYG{p}{([}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{])}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylim}\PYG{p}{([}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{30}\PYG{p}{])}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}alpha\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}beta\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{(}\PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mf}{0.8}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.2}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{contourf}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{,} \PYG{n}{posterior}\PYG{p}{,} \PYG{n}{cmap}\PYG{o}{=}\PYG{n}{plt}\PYG{o}{.}\PYG{n}{cm}\PYG{o}{.}\PYG{n}{Greys}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{colorbar}\PYG{p}{(}\PYG{n}{plt}\PYG{o}{.}\PYG{n}{contourf}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{,} \PYG{n}{beta}\PYG{p}{,} \PYG{n}{posterior}\PYG{p}{,} \PYG{n}{cmap}\PYG{o}{=}\PYG{n}{plt}\PYG{o}{.}\PYG{n}{cm}\PYG{o}{.}\PYG{n}{Greys}\PYG{p}{))}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{resamples}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{resamples}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{],} \PYG{l+m+mi}{8}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=.}\PYG{l+m+mi}{15}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}grey\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Contourf \PYGZam{} Ccatter Comparision\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./contourf\PYGZus{}scatter.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{i)}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{n}{beta\PYGZus{}resample} \PYG{o}{=} \PYG{n}{resamples}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{]}
+\PYG{n}{alpha\PYGZus{}resample} \PYG{o}{=} \PYG{n}{resamples}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{]}
+\PYG{n}{pos} \PYG{o}{=} \PYG{n}{beta\PYGZus{}resample} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}
+\PYG{n}{p\PYGZus{}harmful} \PYG{o}{=} \PYG{p}{(}\PYG{n}{beta\PYGZus{}resample}\PYG{p}{[}\PYG{n}{pos}\PYG{p}{]}\PYG{o}{.}\PYG{n}{size}\PYG{o}{/}\PYG{p}{(}\PYG{n}{beta\PYGZus{}resample}\PYG{o}{.}\PYG{n}{size} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{))}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Probability that the drug is harmful:\PYGZsq{}}\PYG{p}{,} \PYG{n}{p\PYGZus{}harmful}\PYG{p}{)}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{j)}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{n}{ld50} \PYG{o}{=} \PYG{o}{\PYGZhy{}} \PYG{n}{alpha\PYGZus{}resample}\PYG{p}{[}\PYG{n}{pos}\PYG{p}{]}\PYG{o}{/}\PYG{n}{beta\PYGZus{}resample}\PYG{p}{[}\PYG{n}{pos}\PYG{p}{]}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{0.4}\PYG{p}{,} \PYG{l+m+mf}{0.4}\PYG{p}{,} \PYG{l+m+mf}{0.01}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{ld50}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{ec}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}white\PYGZsq{}}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}grey\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}LD50\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Histogram\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./histogram.png\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

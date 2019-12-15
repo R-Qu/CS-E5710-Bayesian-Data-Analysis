@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{theta} \PYG{o}{=}\PYG{l+m+mi}{1}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{o}{+}\PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{p}{(}\PYG{n}{samples}\PYG{p}{[:,}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{n+nb+bp}{None}\PYG{p}{]} \PYG{o}{+} \PYG{n}{samples}\PYG{p}{[:,}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n+nb+bp}{None}\PYG{p}{]}\PYG{o}{*}\PYG{n}{dose}\PYG{p}{)))}
+\PYG{n}{weights} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{prod}\PYG{p}{(}
+    \PYG{n}{theta}\PYG{o}{**}\PYG{n}{deaths} \PYG{o}{*} \PYG{p}{(}\PYG{l+m+mi}{1} \PYG{o}{\PYGZhy{}} \PYG{n}{theta}\PYG{p}{)}\PYG{o}{**}\PYG{p}{(}\PYG{n}{animals} \PYG{o}{\PYGZhy{}} \PYG{n}{deaths}\PYG{p}{),} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}Normalize the weights}
+\PYG{n}{weights\PYGZus{}norm} \PYG{o}{=} \PYG{p}{(}\PYG{n}{weights}\PYG{p}{)} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{weights}\PYG{p}{)}
+\end{Verbatim}
