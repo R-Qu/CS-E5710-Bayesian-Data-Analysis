@@ -1,0 +1,28 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{stan\PYGZus{}code\PYGZus{}hierarchical} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+s1}{data \PYGZob{}}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=0\PYGZgt{} N;             // number of data points}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=0\PYGZgt{} K;             // number of groups}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=1,upper=K\PYGZgt{} x[N];  // group indicator}
+\PYG{l+s+s1}{    vector[N] y;}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{parameters \PYGZob{}}
+\PYG{l+s+s1}{    real mu0;                   // prior mean}
+\PYG{l+s+s1}{    real\PYGZlt{}lower=0\PYGZgt{} sigma0;       // prior std}
+\PYG{l+s+s1}{    vector[K] mu;               // group means}
+\PYG{l+s+s1}{    real\PYGZlt{}lower=0\PYGZgt{} sigma;        // common std}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{model \PYGZob{}}
+\PYG{l+s+s1}{    mu \PYGZti{} normal(mu0, sigma0);}
+\PYG{l+s+s1}{    y \PYGZti{} normal(mu[x], sigma);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{generated quantities \PYGZob{}}
+\PYG{l+s+s1}{    vector[K+1] ypred;}
+\PYG{l+s+s1}{    real mu7;}
+\PYG{l+s+s1}{    mu7 = normal\PYGZus{}rng(mu0, sigma0);}
+\PYG{l+s+s1}{    for (i in 1:K)}
+\PYG{l+s+s1}{        ypred[i] = normal\PYGZus{}rng(mu[i], sigma);}
+\PYG{l+s+s1}{    ypred[K+1] = normal\PYGZus{}rng(mu7, sigma);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\end{Verbatim}

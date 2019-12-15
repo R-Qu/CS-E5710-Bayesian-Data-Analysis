@@ -1,0 +1,78 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k+kn}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k+kn}{as} \PYG{n+nn}{pd}
+\PYG{k+kn}{import} \PYG{n+nn}{pystan}
+
+\PYG{n}{machines} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}fwf}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./factory.txt\PYGZsq{}}\PYG{p}{,} \PYG{n}{header}\PYG{o}{=}\PYG{n+nb+bp}{None}\PYG{p}{)}\PYG{o}{.}\PYG{n}{values}
+\PYG{n}{machines\PYGZus{}transposed} \PYG{o}{=} \PYG{n}{machines}\PYG{o}{.}\PYG{n}{T}
+
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{Hierarchical model}
+\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{n}{stan\PYGZus{}code\PYGZus{}hierarchical} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+s1}{data \PYGZob{}}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=0\PYGZgt{} N;             // number of data points}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=0\PYGZgt{} K;             // number of groups}
+\PYG{l+s+s1}{    int\PYGZlt{}lower=1,upper=K\PYGZgt{} x[N];  // group indicator}
+\PYG{l+s+s1}{    vector[N] y;}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{parameters \PYGZob{}}
+\PYG{l+s+s1}{    real mu0;                   // prior mean}
+\PYG{l+s+s1}{    real\PYGZlt{}lower=0\PYGZgt{} sigma0;       // prior std}
+\PYG{l+s+s1}{    vector[K] mu;               // group means}
+\PYG{l+s+s1}{    real\PYGZlt{}lower=0\PYGZgt{} sigma;        // common std}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{model \PYGZob{}}
+\PYG{l+s+s1}{    mu \PYGZti{} normal(mu0, sigma0);}
+\PYG{l+s+s1}{    y \PYGZti{} normal(mu[x], sigma);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{generated quantities \PYGZob{}}
+\PYG{l+s+s1}{    vector[K+1] ypred;}
+\PYG{l+s+s1}{    real mu7;}
+\PYG{l+s+s1}{    mu7 = normal\PYGZus{}rng(mu0, sigma0);}
+\PYG{l+s+s1}{    for (i in 1:K)}
+\PYG{l+s+s1}{        ypred[i] = normal\PYGZus{}rng(mu[i], sigma);}
+\PYG{l+s+s1}{    ypred[K+1] = normal\PYGZus{}rng(mu7, sigma);}
+\PYG{l+s+s1}{\PYGZcb{}}
+\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+
+\PYG{n}{model\PYGZus{}hierarchical} \PYG{o}{=} \PYG{n}{pystan}\PYG{o}{.}\PYG{n}{StanModel}\PYG{p}{(}\PYG{n}{model\PYGZus{}code}\PYG{o}{=}\PYG{n}{stan\PYGZus{}code\PYGZus{}hierarchical}\PYG{p}{)}
+\PYG{n}{data\PYGZus{}hierarchical} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{(}
+    \PYG{n}{N}\PYG{o}{=}\PYG{n}{machines\PYGZus{}transposed}\PYG{o}{.}\PYG{n}{size}\PYG{p}{,}
+    \PYG{n}{K}\PYG{o}{=}\PYG{l+m+mi}{6}\PYG{p}{,}
+    \PYG{n}{x}\PYG{o}{=}\PYG{p}{[}
+        \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,}
+        \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,}
+        \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,}
+        \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,}
+        \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,}
+        \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{,}
+    \PYG{p}{],}
+    \PYG{n}{y}\PYG{o}{=}\PYG{n}{machines\PYGZus{}transposed}\PYG{o}{.}\PYG{n}{flatten}\PYG{p}{()}
+\PYG{p}{)}
+
+\PYG{n}{fit\PYGZus{}hierarchical} \PYG{o}{=} \PYG{n}{model\PYGZus{}hierarchical}\PYG{o}{.}\PYG{n}{sampling}\PYG{p}{(}\PYG{n}{data}\PYG{o}{=}\PYG{n}{data\PYGZus{}hierarchical}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{fit\PYGZus{}hierarchical}\PYG{p}{)}
+
+\PYG{n}{utility} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{l+m+mi}{7}\PYG{p}{)}
+\PYG{n}{ypred} \PYG{o}{=} \PYG{n}{fit\PYGZus{}hierarchical}\PYG{o}{.}\PYG{n}{extract}\PYG{p}{(}\PYG{n}{permuted}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)[}\PYG{l+s+s1}{\PYGZsq{}ypred\PYGZsq{}}\PYG{p}{]}
+\PYG{n}{ulist}\PYG{o}{=}\PYG{p}{[]}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{7}\PYG{p}{):}
+    \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{ypred}\PYG{p}{)):}
+        \PYG{k}{if} \PYG{n}{ypred}\PYG{p}{[}\PYG{n}{j}\PYG{p}{,} \PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{85}\PYG{p}{:}
+            \PYG{n}{utility}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZhy{}=} \PYG{l+m+mi}{106}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{utility}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{+=} \PYG{p}{(}\PYG{l+m+mi}{200}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{106}\PYG{p}{)}
+
+        \PYG{n}{i\PYGZus{}utility} \PYG{o}{=} \PYG{n}{utility}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{/}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{ypred}\PYG{p}{)}
+
+    \PYG{n}{ulist}\PYG{o}{.}\PYG{n}{append}\PYG{p}{((}\PYG{l+s+s1}{\PYGZsq{}Machine\PYGZsq{}}\PYG{p}{,} \PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{i\PYGZus{}utility}\PYG{p}{))}
+    \PYG{c+c1}{\PYGZsh{}print(\PYGZsq{}Machine\PYGZsq{}, i+1, i\PYGZus{}utility)}
+
+\PYG{k}{for} \PYG{n}{u} \PYG{o+ow}{in} \PYG{n}{ulist}\PYG{p}{:}
+    \PYG{k}{print}\PYG{p}{(}\PYG{n}{u}\PYG{p}{)}
+
+\PYG{n}{sorted\PYGZus{}ulist}\PYG{o}{=} \PYG{n+nb}{sorted}\PYG{p}{(}\PYG{n}{ulist}\PYG{p}{,} \PYG{n}{key}\PYG{o}{=}\PYG{k}{lambda} \PYG{n}{x}\PYG{p}{:} \PYG{n}{x}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])}
+\PYG{k}{for} \PYG{n}{s} \PYG{o+ow}{in} \PYG{n}{sorted\PYGZus{}ulist}\PYG{p}{:}
+    \PYG{k}{print}\PYG{p}{(}\PYG{n}{s}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{utility} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{l+m+mi}{7}\PYG{p}{)}
+\PYG{n}{ypred} \PYG{o}{=} \PYG{n}{fit\PYGZus{}hierarchical}\PYG{o}{.}\PYG{n}{extract}\PYG{p}{(}\PYG{n}{permuted}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)[}\PYG{l+s+s1}{\PYGZsq{}ypred\PYGZsq{}}\PYG{p}{]}
+
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{7}\PYG{p}{):}
+    \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{ypred}\PYG{p}{)):}
+        \PYG{k}{if} \PYG{n}{ypred}\PYG{p}{[}\PYG{n}{j}\PYG{p}{,} \PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{85}\PYG{p}{:}
+            \PYG{n}{utility}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZhy{}=} \PYG{l+m+mi}{106}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{utility}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{+=} \PYG{p}{(}\PYG{l+m+mi}{200}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{106}\PYG{p}{)}
+
+        \PYG{n}{i\PYGZus{}utility} \PYG{o}{=} \PYG{n}{utility}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{/}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{ypred}\PYG{p}{)}
+\end{Verbatim}
